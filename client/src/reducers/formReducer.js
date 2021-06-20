@@ -15,7 +15,7 @@ import {
   REMOVE_COMPANY,
   GET_RESPONSE,
   REMOVE_RESPONSE,
-} from "../actions/types";
+} from '../actions/types';
 
 const initialState = {
   forms: [],
@@ -24,7 +24,7 @@ const initialState = {
   error: {},
 };
 
-export default function (state = initialState, action) {
+const formReducer = (state = initialState, action) => {
   const { payload, type } = action;
 
   switch (type) {
@@ -77,4 +77,6 @@ export default function (state = initialState, action) {
     default:
       return state;
   }
-}
+};
+
+export default formReducer;

@@ -14,7 +14,7 @@ import {
   GET_EDUCATION,
   POST_FILE,
   ALL_USERS,
-} from "../actions/types";
+} from '../actions/types';
 
 const initialState = {
   profile: null,
@@ -25,7 +25,7 @@ const initialState = {
   user: null,
 };
 
-export default function (state = initialState, action) {
+const profileReducer = (state = initialState, action) => {
   const { type, payload } = action;
 
   switch (type) {
@@ -47,12 +47,12 @@ export default function (state = initialState, action) {
         users2: payload,
         loading: false,
       };
-      case ALL_USERS:
-        return{
-          ...state,
-          allUsers: payload,
-          loading: false,
-        } ;
+    case ALL_USERS:
+      return {
+        ...state,
+        allUsers: payload,
+        loading: false,
+      };
     case GET_PROFILES:
       return {
         ...state,
@@ -83,4 +83,6 @@ export default function (state = initialState, action) {
     default:
       return state;
   }
-}
+};
+
+export default profileReducer;
