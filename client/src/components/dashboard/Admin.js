@@ -1,17 +1,16 @@
-import React, { useEffect, Fragment } from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import Spinner from "../layout/Spinner";
-import { getProfiles, getUsers, getAllusers } from "../../actions/profile";
-import { getPosts } from "../../actions/post";
-import AdminPosts from "../admin/LastPosts";
-import AdminProfiles from "../admin/LastProfiles";
-import AddUsers from "../admin/AddUsers";
-import AdminUsers from "../admin/LastUsers";
-import AllUsers from "../admin/AllUsers";
+import React, { useEffect, Fragment } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import Spinner from '../layout/Spinner';
+import { getProfiles, getUsers, getAllusers } from '../../actions/profile';
+import { getPosts } from '../../actions/post';
+import AdminPosts from '../admin/LastPosts';
+import AdminProfiles from '../admin/LastProfiles';
+import AddUsers from '../admin/AddUsers';
+import AdminUsers from '../admin/LastUsers';
+import AllUsers from '../admin/AllUsers';
 
-const propComparator = (propName) => (a, b) =>
-  a[propName] === b[propName] ? 0 : a[propName] < b[propName] ? -1 : 1;
+const propComparator = (propName) => (a, b) => a[propName] === b[propName] ? 0 : a[propName] < b[propName] ? -1 : 1;
 
 const Admin = ({
   profile: { profiles, profile, users2, allUsers, loading },
@@ -42,10 +41,8 @@ const Admin = ({
                   <Spinner />
                 ) : (
                   profiles
-                    .map((profile) => (
-                      <AdminProfiles key={profile._id} profile={profile} />
-                    ))
-                    .sort(propComparator("date"))
+                    .map((profile) => <AdminProfiles key={profile._id} profile={profile} />)
+                    .sort(propComparator('date'))
                     .slice(0, 5)
                 )}
               </div>
@@ -58,7 +55,7 @@ const Admin = ({
                 ) : (
                   posts
                     .map((post) => <AdminPosts key={post._id} post={post} />)
-                    .sort(propComparator("date"))
+                    .sort(propComparator('date'))
                     .slice(0, 5)
                 )}
               </div>
@@ -74,7 +71,7 @@ const Admin = ({
                   <Fragment>
                     {users2
                       .map((usrs) => <AdminUsers key={usrs._id} usrs={usrs} />)
-                      .sort(propComparator("date"))
+                      .sort(propComparator('date'))
                       .slice(0, 5)}
                   </Fragment>
                 )}
@@ -97,7 +94,7 @@ const Admin = ({
                   <Fragment>
                     {allUsers
                       .map((usrs) => <AllUsers key={usrs._id} usrs={usrs} />)
-                      .sort(propComparator("date"))
+                      .sort(propComparator('date'))
                       .slice(0, 5)}
                   </Fragment>
                 )}

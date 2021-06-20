@@ -1,27 +1,20 @@
-import React, { useEffect, Fragment } from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import Spinner from "./../layout/Spinner";
-import { Link } from "react-router-dom";
-import { getForm } from "../../actions/form";
-import { getProfiles } from "../../actions/profile";
-import FormResponse from "./FormResponse";
+import React, { useEffect, Fragment } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import Spinner from './../layout/Spinner';
+import { Link } from 'react-router-dom';
+import { getForm } from '../../actions/form';
+import { getProfiles } from '../../actions/profile';
+import FormResponse from './FormResponse';
 
-const FormResponses = ({
-  auth: { loading },
-  getForm,
-  getProfiles,
-  profile: { profiles },
-  forms: { form },
-  match,
-}) => {
+const FormResponses = ({ auth: { loading }, getForm, getProfiles, profile: { profiles }, forms: { form }, match }) => {
   useEffect(() => {
     getForm(match.params.company, match.params.id);
     getProfiles();
   }, [getForm, match, getProfiles]);
 
   const company = match.params.company;
-  
+
   return loading || !form ? (
     <Spinner />
   ) : (
@@ -33,7 +26,7 @@ const FormResponses = ({
         <h1>Responses to form </h1>
         <div>
           <hr />
-          <br/>
+          <br />
           <h2>Questions:</h2>
           <div className="sectionLeftPadding">
             <ol>
@@ -48,17 +41,10 @@ const FormResponses = ({
         </div>
         <div className="sectionLeftPadding">
           <hr />
-          <br/>
+          <br />
           <h2>Responses:</h2>
           {form.responses && form.responses.length > 0 ? (
-            form.responses.map((form) => (
-              <FormResponse
-                key={form._id}
-                form={form}
-                match={match}
-                profile={profiles}
-              />
-            ))
+            form.responses.map((form) => <FormResponse key={form._id} form={form} match={match} profile={profiles} />)
           ) : (
             <h3>No responses available</h3>
           )}
@@ -82,6 +68,4 @@ const mapStateToProps = (state) => ({
   profile: state.profile,
 });
 
-export default connect(mapStateToProps, { getForm, getProfiles })(
-  FormResponses
-);
+export default connect(mapStateToProps, { getForm, getProfiles })(FormResponses);

@@ -1,24 +1,19 @@
-import React, { useEffect, Fragment } from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import Spinner from "../layout/Spinner";
-import { getCurrentProfile, deleteAccount } from "../../actions/profile";
-import { Link } from "react-router-dom";
-import Education from "./Education";
-import Experience from "./Experience";
+import React, { useEffect, Fragment } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import Spinner from '../layout/Spinner';
+import { getCurrentProfile, deleteAccount } from '../../actions/profile';
+import { Link } from 'react-router-dom';
+import Education from './Education';
+import Experience from './Experience';
 
-const Dashboard = ({
-  getCurrentProfile,
-  deleteAccount,
-  auth: { user },
-  profile: { profile, loading },
-}) => {
+const Dashboard = ({ getCurrentProfile, deleteAccount, auth: { user }, profile: { profile, loading } }) => {
   useEffect(() => {
     getCurrentProfile();
   }, [getCurrentProfile]);
 
   const submitOperation = () => {
-    if (window.confirm("Do you really want to remove your account?")) {
+    if (window.confirm('Do you really want to remove your account?')) {
       deleteAccount();
     }
   };
@@ -34,8 +29,7 @@ const Dashboard = ({
         </p>
         {profile ? (
           <Fragment>
-            {typeof profile.experience !== "object" ||
-            typeof profile.education !== "object" ? (
+            {typeof profile.experience !== 'object' || typeof profile.education !== 'object' ? (
               <Spinner />
             ) : (
               <Fragment>
@@ -46,19 +40,14 @@ const Dashboard = ({
               </Fragment>
             )}
             <div className="removeUser-section">
-              <button
-                className="btn btn-danger"
-                onClick={() => submitOperation()}
-              >
+              <button className="btn btn-danger" onClick={() => submitOperation()}>
                 <i className="fas fa-user-minus"></i> Delete My Account
               </button>
             </div>
           </Fragment>
         ) : (
           <Fragment>
-            <p>
-              You have not yet setup a profile, please add some informations
-            </p>
+            <p>You have not yet setup a profile, please add some informations</p>
             <Link to="/create-profile" className="btn btn-primary my-1">
               Create profile
             </Link>
@@ -81,6 +70,4 @@ const mapStateToProps = (state) => ({
   profile: state.profile,
 });
 
-export default connect(mapStateToProps, { getCurrentProfile, deleteAccount })(
-  Dashboard
-);
+export default connect(mapStateToProps, { getCurrentProfile, deleteAccount })(Dashboard);

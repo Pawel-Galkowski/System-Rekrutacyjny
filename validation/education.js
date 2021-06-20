@@ -28,5 +28,5 @@ module.exports = function validateEducationImput(data) {
   return {
     errors,
     isValid: isEmpty(errors),
-  }
+  };
 };

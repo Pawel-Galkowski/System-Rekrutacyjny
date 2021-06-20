@@ -1,13 +1,11 @@
-var Profile = require("../models/Profile");
-var User = require("../models/User");
-var Promise = require("bluebird");
-var validation = require("../validation");
+var Profile = require('../models/Profile');
+var User = require('../models/User');
+var Promise = require('bluebird');
+var validation = require('../validation');
 
 function checkExpEdu(params, action, callback) {
-  if (action == "experience") {
-    const { errors, isValid } = validation.experience.validateExperienceInput(
-      params
-    );
+  if (action == 'experience') {
+    const { errors, isValid } = validation.experience.validateExperienceInput(params);
 
     if (!isValid) {
       callback(errors, null);
@@ -21,15 +19,13 @@ function checkExpEdu(params, action, callback) {
       from: params.from,
       to: params.to,
       current: params.current,
-      description: params.description
+      description: params.description,
     };
     callback(null, newExp);
     return;
   }
-  if (action == "education") {
-    const { errors, isValid } = validation.education.validateEducationInput(
-      params
-    );
+  if (action == 'education') {
+    const { errors, isValid } = validation.education.validateEducationInput(params);
 
     if (!isValid) {
       callback(errors, null);
@@ -43,7 +39,7 @@ function checkExpEdu(params, action, callback) {
       from: params.from,
       to: params.to,
       current: params.current,
-      description: params.description
+      description: params.description,
     };
     callback(null, newEdu);
     return;
@@ -51,18 +47,18 @@ function checkExpEdu(params, action, callback) {
 }
 
 module.exports = {
-  find: params => {
+  find: (params) => {
     return new Promise((resolve, reject) => {
       const errors = {};
       Profile.find(params)
-        .populate("user", ["name", "avatar"])
+        .populate('user', ['name', 'avatar'])
         .exec((err, profiles) => {
           if (err) {
-            reject({ profiles: "There are no profiles" });
+            reject({ profiles: 'There are no profiles' });
             return;
           }
           if (profiles.length == 0) {
-            errors.noprofile = "There are no profiles";
+            errors.noprofile = 'There are no profiles';
             reject(errors);
             return;
           }
@@ -70,18 +66,18 @@ module.exports = {
         });
     });
   },
-  findOne: params => {
+  findOne: (params) => {
     return new Promise((resolve, reject) => {
       const errors = {};
       Profile.findOne(params)
-        .populate("user", ["name", "avatar"])
+        .populate('user', ['name', 'avatar'])
         .exec((err, profile) => {
           if (err) {
             reject(err);
             return;
           }
           if (!profile) {
-            errors.noprofile = "There is no profile for this user";
+            errors.noprofile = 'There is no profile for this user';
             reject(errors);
             return;
           }
@@ -89,16 +85,16 @@ module.exports = {
         });
     });
   },
-  findByUserId: params => {
+  findByUserId: (params) => {
     return new Promise((resolve, reject) => {
       const errors = {};
       Profile.findOne(params, (err, profile) => {
         if (err) {
-          reject({ profile: "There is no profile for this user" });
+          reject({ profile: 'There is no profile for this user' });
           return;
         }
         if (!profile) {
-          errors.noprofile = "There is no profile for this user";
+          errors.noprofile = 'There is no profile for this user';
           reject(errors);
           return;
         }
@@ -108,40 +104,32 @@ module.exports = {
   },
   save: (user, params) => {
     return new Promise((resolve, reject) => {
-      const { errors, isValid } = validation.profile.validateProfileInput(
-        params
-      );
+      const { errors, isValid } = validation.profile.validateProfileInput(params);
 
       if (!isValid) {
         reject(errors);
         return;
       }
 
-      params["user"] = user.id;
+      params['user'] = user.id;
 
-      if (typeof params["skills"] !== "undefined") {
+      if (typeof params['skills'] !== 'undefined') {
         var skillsArray = [];
-        var skills = params["skills"].split(",");
-        skills.forEach(skill => {
+        var skills = params['skills'].split(',');
+        skills.forEach((skill) => {
           skillsArray.push(skill.trim());
         });
-        params["skills"] = skillsArray;
+        params['skills'] = skillsArray;
       }
 
       var social = {};
-      var socialMedia = [
-        "youtube",
-        "twitter",
-        "facebook",
-        "linkedin",
-        "instagram"
-      ];
-      socialMedia.forEach(media => {
+      var socialMedia = ['youtube', 'twitter', 'facebook', 'linkedin', 'instagram'];
+      socialMedia.forEach((media) => {
         if (params[media]) {
           social[media] = params[media];
         }
       });
-      params["social"] = social;
+      params['social'] = social;
 
       Profile.findOne({ user: user.id }, (err, profile) => {
         if (err) {
@@ -151,29 +139,24 @@ module.exports = {
 
         // update profile
         if (profile) {
-          Profile.findByIdAndUpdate(
-            profile._id,
-            params,
-            { new: true },
-            (err, profile) => {
-              if (err) {
-                reject(err);
-                return;
-              }
-              resolve(profile);
+          Profile.findByIdAndUpdate(profile._id, params, { new: true }, (err, profile) => {
+            if (err) {
+              reject(err);
+              return;
             }
-          );
+            resolve(profile);
+          });
           return;
         }
 
         // check if handle exists
-        Profile.findOne({ handle: params["handle"] }, (err, profile) => {
+        Profile.findOne({ handle: params['handle'] }, (err, profile) => {
           if (err) {
             reject(err);
             return;
           }
           if (profile) {
-            errors.handle = "That handle already exists";
+            errors.handle = 'That handle already exists';
             reject(errors);
             return;
           }
@@ -204,7 +187,7 @@ module.exports = {
             return;
           }
           if (!profile) {
-            errors.profile = "No profile found for this user";
+            errors.profile = 'No profile found for this user';
             reject(errors);
             return;
           }
@@ -230,11 +213,11 @@ module.exports = {
           return;
         }
         if (!profile) {
-          errors.profile = "No profile found for this user";
+          errors.profile = 'No profile found for this user';
           reject(errors);
           return;
         }
-        const removeIndex = profile[action].map(item => item.id).indexOf(id);
+        const removeIndex = profile[action].map((item) => item.id).indexOf(id);
         profile[action].splice(removeIndex, 1);
         profile.save((err, profile) => {
           if (err) {
@@ -246,7 +229,7 @@ module.exports = {
       });
     });
   },
-  delete: params => {
+  delete: (params) => {
     return new Promise((resolve, reject) => {
       const errors = {};
       Profile.findOne(params, (err, profile) => {
@@ -255,7 +238,7 @@ module.exports = {
           return;
         }
         if (!profile) {
-          errors.profile = "No profile found for this user";
+          errors.profile = 'No profile found for this user';
           reject(errors);
           return;
         }
@@ -275,5 +258,5 @@ module.exports = {
         });
       });
     });
-  }
+  },
 };

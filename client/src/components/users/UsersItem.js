@@ -1,10 +1,10 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 
 const UsersItem = ({
   profile: {
-    user: { _id, name, avatar }
-  }
+    user: { _id, name, avatar },
+  },
 }) => {
   return (
     <div className="profile bg-light">
@@ -17,7 +17,7 @@ const UsersItem = ({
 };
 
 UsersItem.propTypes = {
-  profile: PropTypes.object.isRequired
+  profile: PropTypes.object.isRequired,
 };
 
 export default UsersItem;

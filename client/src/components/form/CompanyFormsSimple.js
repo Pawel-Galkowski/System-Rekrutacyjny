@@ -1,14 +1,10 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { Link } from "react-router-dom";
-import { removeForm } from "../../actions/form";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { removeForm } from '../../actions/form';
 
-const CompanyForms = ({
-  company,
-  formTable: { _id, body },
-  name,
-}) => (
+const CompanyForms = ({ company, formTable: { _id, body }, name }) => (
   <div className="formItemBig bg-white">
     <div>
       <h3>{name}</h3>
@@ -16,9 +12,7 @@ const CompanyForms = ({
     <div>
       <h1>{body && body.title}</h1>
       <h2>Skills: {body && body.skills}</h2>
-      <div className="marginUpDown-1">
-        {body && body.body}
-      </div>
+      <div className="marginUpDown-1">{body && body.body}</div>
       <Link to={`/api/forms/${company}/${_id}`}>
         <h4>Apply for that position</h4>
       </Link>

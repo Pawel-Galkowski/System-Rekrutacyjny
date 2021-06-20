@@ -1,13 +1,13 @@
-import React, { Fragment } from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import Moment from "react-moment";
-import { deleteEducation } from "../../actions/profile";
-import { Link } from "react-router-dom";
+import React, { Fragment } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import Moment from 'react-moment';
+import { deleteEducation } from '../../actions/profile';
+import { Link } from 'react-router-dom';
 
 const Education = ({ education, deleteEducation }) => {
   const submitOperation = (id) => {
-    if (window.confirm("Do you really want to remove that experience?")) {
+    if (window.confirm('Do you really want to remove that experience?')) {
       deleteEducation(id);
     }
   };
@@ -18,26 +18,16 @@ const Education = ({ education, deleteEducation }) => {
       <td>{edu.degree}</td>
       <td>{edu.fieldofstudy}</td>
       <td className="hide-md">
-        <Moment format="YYYY/MM/DD">{edu.from}</Moment> -{" "}
-        {edu.to !== null ? (
-          <Moment format="YYYY/MM/DD">{edu.to}</Moment>
-        ) : (
-          "Now"
-        )}
+        <Moment format="YYYY/MM/DD">{edu.from}</Moment> -{' '}
+        {edu.to !== null ? <Moment format="YYYY/MM/DD">{edu.to}</Moment> : 'Now'}
       </td>
       <td>
-        <Link
-          to={{ pathname: `/edit-education/${edu._id}`, query: `${edu._id}` }}
-          className="btn btn-light"
-        >
+        <Link to={{ pathname: `/edit-education/${edu._id}`, query: `${edu._id}` }} className="btn btn-light">
           <i className="far fa-edit fa-2x"></i>
         </Link>
       </td>
       <td>
-        <i
-          className="far fa-window-close fa-2x"
-          onClick={() => submitOperation(edu._id)}
-        ></i>
+        <i className="far fa-window-close fa-2x" onClick={() => submitOperation(edu._id)}></i>
       </td>
     </tr>
   ));
@@ -55,21 +45,15 @@ const Education = ({ education, deleteEducation }) => {
       <tr>
         <th>Edit</th>
         <td>
-          <Link
-            to={{ pathname: `/edit-education/${edu._id}`, query: `${edu._id}` }}
-            className="btn btn-light"
-          >
+          <Link to={{ pathname: `/edit-education/${edu._id}`, query: `${edu._id}` }} className="btn btn-light">
             <i className="far fa-edit fa-2x"></i>
           </Link>
         </td>
-        </tr>
+      </tr>
       <tr className="strong-bottom">
         <th>Remove</th>
         <td>
-          <i
-            className="far fa-window-close fa-2x"
-            onClick={() => submitOperation(edu._id)}
-          ></i>
+          <i className="far fa-window-close fa-2x" onClick={() => submitOperation(edu._id)}></i>
         </td>
       </tr>
     </Fragment>

@@ -1,31 +1,28 @@
-import React, { Fragment, useState } from "react";
-import { changePassword } from "../../actions/auth";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
-import { setAlert } from "../../actions/alert";
+import React, { Fragment, useState } from 'react';
+import { changePassword } from '../../actions/auth';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { setAlert } from '../../actions/alert';
 
 const ChangePassword = ({ changePassword }) => {
   const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-    password2: ""
+    email: '',
+    password: '',
+    password2: '',
   });
 
   const { email, password, password2 } = formData;
   const fullUrl = window.location.href;
-  const token = fullUrl.replace(/([^]+)recovery\//g, "");
+  const token = fullUrl.replace(/([^]+)recovery\//g, '');
 
-  const onchange = e =>
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+  const onchange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
 
-  const onSubmit = async e => {
+  const onSubmit = async (e) => {
     e.preventDefault();
     if (password === password2) {
-      changePassword(email, password, token).then(
-        setAlert("Password Changed", "success")
-      );
+      changePassword(email, password, token).then(setAlert('Password Changed', 'success'));
     } else {
-      setAlert("Passwords do not match", "danger");
+      setAlert('Passwords do not match', 'danger');
     }
   };
 
@@ -38,11 +35,7 @@ const ChangePassword = ({ changePassword }) => {
             <div className="form-wrap">
               <div className="tabs-content">
                 <div id="register-tab-content" className="active">
-                  <form
-                    className="register-form"
-                    onSubmit={e => onSubmit(e)}
-                    method="post"
-                  >
+                  <form className="register-form" onSubmit={(e) => onSubmit(e)} method="post">
                     <div className="input-box">
                       <div className="form-group">
                         <input
@@ -51,7 +44,7 @@ const ChangePassword = ({ changePassword }) => {
                           placeholder="Email Address"
                           name="email"
                           value={email}
-                          onChange={e => onchange(e)}
+                          onChange={(e) => onchange(e)}
                           required
                         />
                       </div>
@@ -63,7 +56,7 @@ const ChangePassword = ({ changePassword }) => {
                           name="password"
                           minLength="6"
                           value={password}
-                          onChange={e => onchange(e)}
+                          onChange={(e) => onchange(e)}
                           required
                         />
                       </div>
@@ -75,16 +68,12 @@ const ChangePassword = ({ changePassword }) => {
                           name="password2"
                           minLength="6"
                           value={password2}
-                          onChange={e => onchange(e)}
+                          onChange={(e) => onchange(e)}
                           required
                         />
                       </div>
                     </div>
-                    <input
-                      type="submit"
-                      className="button-change"
-                      value="Change Password"
-                    />
+                    <input type="submit" className="button-change" value="Change Password" />
                   </form>
                 </div>
               </div>
@@ -97,7 +86,7 @@ const ChangePassword = ({ changePassword }) => {
 };
 
 ChangePassword.propTypes = {
-  changePassword: PropTypes.func.isRequired
+  changePassword: PropTypes.func.isRequired,
 };
 
 export default connect(null, { changePassword })(ChangePassword);

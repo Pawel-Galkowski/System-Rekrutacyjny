@@ -1,16 +1,11 @@
-import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
-import { logout } from "../../actions/auth";
-import { getCurrentProfile } from "../../actions/profile";
+import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { logout } from '../../actions/auth';
+import { getCurrentProfile } from '../../actions/profile';
 
-const Navbar = ({
-  getCurrentProfile,
-  auth: { isAuthenticated, loading, user },
-  logout,
-  profile: { profile },
-}) => {
+const Navbar = ({ getCurrentProfile, auth: { isAuthenticated, loading, user }, logout, profile: { profile } }) => {
   useEffect(() => {
     getCurrentProfile();
   }, [getCurrentProfile]);
@@ -19,7 +14,7 @@ const Navbar = ({
     <li>
       <Link to={`/profile/${user && user._id}`}>
         <i className="fas fa-user"></i>
-        {""} Profile{" "}
+        {''} Profile{' '}
       </Link>
     </li>
   );
@@ -33,7 +28,7 @@ const Navbar = ({
       <li>
         <a onClick={logout} href="#!">
           <i className="fas fa-sign-out-alt"></i>
-          {""}
+          {''}
           <span> Logout</span>
         </a>
       </li>
@@ -46,7 +41,7 @@ const Navbar = ({
       <li>
         <a onClick={logout} href="#!">
           <i className="fas fa-sign-out-alt"></i>
-          {""}
+          {''}
           <span>Logout</span>
         </a>
       </li>
@@ -78,11 +73,7 @@ const Navbar = ({
         </Link>
       </h1>
       <div className="mainNav">
-        {(user && user.role) === "admin" && isAuthenticated
-          ? adminLinks
-          : isAuthenticated
-          ? authLinks
-          : guestLinks}
+        {(user && user.role) === 'admin' && isAuthenticated ? adminLinks : isAuthenticated ? authLinks : guestLinks}
       </div>
       <div className="menu-wrap">
         <input type="checkbox" className="toggler" />
@@ -92,7 +83,7 @@ const Navbar = ({
         <div className="menu">
           <div>
             <div>
-              {(user && user.role) === "admin" && isAuthenticated
+              {(user && user.role) === 'admin' && isAuthenticated
                 ? adminLinks
                 : isAuthenticated
                 ? authLinks

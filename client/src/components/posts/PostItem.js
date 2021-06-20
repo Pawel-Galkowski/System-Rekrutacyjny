@@ -1,9 +1,9 @@
-import React, { Fragment } from "react";
-import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
-import Moment from "react-moment";
-import { connect } from "react-redux";
-import { addLike, removeLike, deletePost } from "../../actions/post";
+import React, { Fragment } from 'react';
+import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+import Moment from 'react-moment';
+import { connect } from 'react-redux';
+import { addLike, removeLike, deletePost } from '../../actions/post';
 
 const PostItem = ({
   auth,
@@ -15,9 +15,7 @@ const PostItem = ({
   profile,
 }) => {
   var singleProfile;
-  singleProfile = profile
-    ? (singleProfile = profile.filter((x) => x.user._id === user))
-    : null;
+  singleProfile = profile ? (singleProfile = profile.filter((x) => x.user._id === user)) : null;
   return (
     <div className="post bg-white">
       <div>
@@ -41,39 +39,18 @@ const PostItem = ({
         </p>
         {showActions && (
           <Fragment>
-            <button
-              type="button"
-              className="btn btn-light"
-              onClick={(e) => addLike(_id)}
-            >
-              <i className="fas fa-thumbs-up"></i>{" "}
-              <span>
-                {likes && likes.length > 0 ? (
-                  <span>{likes.length}</span>
-                ) : (
-                  <span></span>
-                )}
-              </span>
+            <button type="button" className="btn btn-light" onClick={(e) => addLike(_id)}>
+              <i className="fas fa-thumbs-up"></i>{' '}
+              <span>{likes && likes.length > 0 ? <span>{likes.length}</span> : <span></span>}</span>
             </button>
-            <button
-              type="button"
-              className="btn btn-light"
-              onClick={(e) => removeLike(_id)}
-            >
+            <button type="button" className="btn btn-light" onClick={(e) => removeLike(_id)}>
               <i className="fas fa-thumbs-down"></i>
             </button>
             <Link to={`/posts/${_id}`} className="btn btn-primary">
-              Discussion{" "}
-              {comments.length > 0 && (
-                <span className="comment-count"> {comments.length}</span>
-              )}
+              Discussion {comments.length > 0 && <span className="comment-count"> {comments.length}</span>}
             </Link>
             {!auth.loading && user === auth.user._id && (
-              <button
-                onClick={(e) => deletePost(_id)}
-                type="button"
-                className="btn btn-danger"
-              >
+              <button onClick={(e) => deletePost(_id)} type="button" className="btn btn-danger">
                 <i className="fas fa-times"></i>
               </button>
             )}

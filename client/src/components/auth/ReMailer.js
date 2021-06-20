@@ -1,22 +1,21 @@
-import React, { Fragment, useState } from "react";
-import { recoveryPassword } from "../../actions/auth";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
-import { setAlert } from "../../actions/alert";
+import React, { Fragment, useState } from 'react';
+import { recoveryPassword } from '../../actions/auth';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { setAlert } from '../../actions/alert';
 
 const ReMailer = ({ recoveryPassword }) => {
   const [formData, setFormData] = useState({
-    email: ""
+    email: '',
   });
 
   const { email } = formData;
 
-  const onchange = e =>
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+  const onchange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
 
-  const onSubmit = async e => {
+  const onSubmit = async (e) => {
     e.preventDefault();
-    recoveryPassword(email).then(setAlert("Email send", "success"));
+    recoveryPassword(email).then(setAlert('Email send', 'success'));
   };
 
   return (
@@ -29,14 +28,9 @@ const ReMailer = ({ recoveryPassword }) => {
               <div className="tabs-content">
                 <div id="register-tab-content" className="active">
                   <p className="lead">
-                    <i className="fas fa-user"></i> Write your email to recovery
-                    account
+                    <i className="fas fa-user"></i> Write your email to recovery account
                   </p>
-                  <form
-                    className="register-form"
-                    onSubmit={e => onSubmit(e)}
-                    method="post"
-                  >
+                  <form className="register-form" onSubmit={(e) => onSubmit(e)} method="post">
                     <div className="form-group">
                       <input
                         className="input"
@@ -44,15 +38,11 @@ const ReMailer = ({ recoveryPassword }) => {
                         placeholder="Email Address"
                         name="email"
                         value={email}
-                        onChange={e => onchange(e)}
+                        onChange={(e) => onchange(e)}
                         required
                       />
                     </div>
-                    <input
-                      type="submit"
-                      className="button-change"
-                      value="Change Password"
-                    />
+                    <input type="submit" className="button-change" value="Change Password" />
                   </form>
                 </div>
               </div>
@@ -65,7 +55,7 @@ const ReMailer = ({ recoveryPassword }) => {
 };
 
 ReMailer.propTypes = {
-  recoveryPassword: PropTypes.func.isRequired
+  recoveryPassword: PropTypes.func.isRequired,
 };
 
 export default connect(null, { recoveryPassword })(ReMailer);

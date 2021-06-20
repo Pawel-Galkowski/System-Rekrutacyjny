@@ -1,32 +1,26 @@
-import React, { useState, Fragment, useEffect } from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { Link, withRouter } from "react-router-dom";
-import { createProfile, getCurrentProfile } from "../../actions/profile";
-import Spinner from "../layout/Spinner";
-import axios from "axios";
+import React, { useState, Fragment, useEffect } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { Link, withRouter } from 'react-router-dom';
+import { createProfile, getCurrentProfile } from '../../actions/profile';
+import Spinner from '../layout/Spinner';
+import axios from 'axios';
 
-const EditProfile = ({
-  auth,
-  profile: { profile, loading },
-  createProfile,
-  getCurrentProfile,
-  history,
-}) => {
+const EditProfile = ({ auth, profile: { profile, loading }, createProfile, getCurrentProfile, history }) => {
   const [data, setdata] = useState({
-    company: "",
-    website: "",
-    location: "",
-    bio: "",
-    status: "",
-    githubusername: "",
-    youtube: "",
-    twitter: "",
-    facebook: "",
-    linkedin: "",
-    instagram: "",
-    skills: "",
-    profileImg: "",
+    company: '',
+    website: '',
+    location: '',
+    bio: '',
+    status: '',
+    githubusername: '',
+    youtube: '',
+    twitter: '',
+    facebook: '',
+    linkedin: '',
+    instagram: '',
+    skills: '',
+    profileImg: '',
   });
 
   const {
@@ -54,20 +48,19 @@ const EditProfile = ({
     getCurrentProfile();
     if (profile) {
       setdata({
-        company: loading || !profile.company ? "" : profile.company,
-        website: loading || !profile.website ? "" : profile.website,
-        location: loading || !profile.location ? "" : profile.location,
-        bio: loading || !profile.bio ? "" : profile.bio,
-        skills: loading || !profile.skills ? "" : profile.skills,
-        status: loading || !profile.status ? "" : profile.status,
-        profileImg: loading || !profile.profileImg ? "" : profile.profileImg,
-        githubusername:
-          loading || !profile.githubusername ? "" : profile.githubusername,
-        youtube: loading || !profile.social ? "" : profile.social.youtube,
-        twitter: loading || !profile.social ? "" : profile.social.twitter,
-        facebook: loading || !profile.social ? "" : profile.social.facebook,
-        linkedin: loading || !profile.social ? "" : profile.social.linkedin,
-        instagram: loading || !profile.social ? "" : profile.social.instagram,
+        company: loading || !profile.company ? '' : profile.company,
+        website: loading || !profile.website ? '' : profile.website,
+        location: loading || !profile.location ? '' : profile.location,
+        bio: loading || !profile.bio ? '' : profile.bio,
+        skills: loading || !profile.skills ? '' : profile.skills,
+        status: loading || !profile.status ? '' : profile.status,
+        profileImg: loading || !profile.profileImg ? '' : profile.profileImg,
+        githubusername: loading || !profile.githubusername ? '' : profile.githubusername,
+        youtube: loading || !profile.social ? '' : profile.social.youtube,
+        twitter: loading || !profile.social ? '' : profile.social.twitter,
+        facebook: loading || !profile.social ? '' : profile.social.facebook,
+        linkedin: loading || !profile.social ? '' : profile.social.linkedin,
+        instagram: loading || !profile.social ? '' : profile.social.instagram,
       });
     }
   }, []);
@@ -86,12 +79,12 @@ const EditProfile = ({
 
   const uploadFile = async (e) => {
     const formData = new FormData();
-    formData.append("file", file);
-    formData.append("user", auth.user._id);
+    formData.append('file', file);
+    formData.append('user', auth.user._id);
     try {
       const res = await axios.post(`/uploads`, formData, {
         headers: {
-          "Content-Type": "multipart/form-data",
+          'Content-Type': 'multipart/form-data',
         },
       });
       const { fileName, filePath } = res.data;
@@ -99,7 +92,7 @@ const EditProfile = ({
       setUploadedFile({ fileName, filePath });
     } catch (err) {
       if (err.response.status === 500) {
-        console.log("There was a problem with the server");
+        console.log('There was a problem with the server');
       } else {
         console.log(err.response.data.msg);
       }
@@ -113,8 +106,7 @@ const EditProfile = ({
       <div className="paddingSection">
         <h1 className="large text-primary">Create Your Profile</h1>
         <p className="lead">
-          <i className="fas fa-user"></i> Let's get some information to make
-          your profile stand out
+          <i className="fas fa-user"></i> Let's get some information to make your profile stand out
         </p>
         <small>* = required field</small>
         <form className="form" onSubmit={(e) => onSubmit(e)}>
@@ -130,88 +122,41 @@ const EditProfile = ({
               <option value="Intern">Intern</option>
               <option value="Other">Other</option>
             </select>
-            <small className="form-text">
-              Give us an idea of where you are at in your career
-            </small>
+            <small className="form-text">Give us an idea of where you are at in your career</small>
           </div>
           <div className="form-group">
             <div className="custom-file">
-              <input
-                type="file"
-                className="custom-file-input"
-                id="customFile"
-                onChange={(e) => handleFile(e)}
-              />
+              <input type="file" className="custom-file-input" id="customFile" onChange={(e) => handleFile(e)} />
               <br />
-              <button
-                type="button"
-                className="btn btn-light"
-                onClick={(e) => uploadFile(e)}
-              >
+              <button type="button" className="btn btn-light" onClick={(e) => uploadFile(e)}>
                 Upload file
               </button>
             </div>
             {uploadedFile && uploadedFile.length > 0 ? (
               <div className="row mt-5">
-                <img
-                  style={{ width: "30%" }}
-                  src={uploadedFile.filePath}
-                  alt=""
-                />
+                <img style={{ width: '30%' }} src={uploadedFile.filePath} alt="" />
               </div>
             ) : profileImg && profileImg.length > 0 ? (
               <div className="row mt-5">
-                <img style={{ width: "30%" }} src={profileImg} alt="" />
+                <img style={{ width: '30%' }} src={profileImg} alt="" />
               </div>
             ) : null}
           </div>
           <div className="form-group">
-            <input
-              type="text"
-              placeholder="Company"
-              name="company"
-              value={company}
-              onChange={(e) => onChange(e)}
-            />
-            <small className="form-text">
-              Could be your own company or one you work for
-            </small>
+            <input type="text" placeholder="Company" name="company" value={company} onChange={(e) => onChange(e)} />
+            <small className="form-text">Could be your own company or one you work for</small>
           </div>
           <div className="form-group">
-            <input
-              type="text"
-              placeholder="Website"
-              name="website"
-              value={website}
-              onChange={(e) => onChange(e)}
-            />
-            <small className="form-text">
-              Could be your own or a company website
-            </small>
+            <input type="text" placeholder="Website" name="website" value={website} onChange={(e) => onChange(e)} />
+            <small className="form-text">Could be your own or a company website</small>
           </div>
           <div className="form-group">
-            <input
-              type="text"
-              placeholder="Location"
-              name="location"
-              value={location}
-              onChange={(e) => onChange(e)}
-            />
-            <small className="form-text">
-              City & state suggested (eg. Boston, MA)
-            </small>
+            <input type="text" placeholder="Location" name="location" value={location} onChange={(e) => onChange(e)} />
+            <small className="form-text">City & state suggested (eg. Boston, MA)</small>
           </div>
           <div className="form-group">
-            <input
-              type="text"
-              placeholder="* Skills"
-              name="skills"
-              value={skills}
-              onChange={(e) => onChange(e)}
-            />
-            <small className="form-text">
-              Please use comma separated values (eg. HTML,CSS,JavaScript,PHP)
-            </small>
+            <input type="text" placeholder="* Skills" name="skills" value={skills} onChange={(e) => onChange(e)} />
+            <small className="form-text">Please use comma separated values (eg. HTML,CSS,JavaScript,PHP)</small>
           </div>
           <div className="form-group">
             <input
@@ -221,10 +166,7 @@ const EditProfile = ({
               value={githubusername}
               onChange={(e) => onChange(e)}
             />
-            <small className="form-text">
-              If you want your latest repos and a Github link, include your
-              username
-            </small>
+            <small className="form-text">If you want your latest repos and a Github link, include your username</small>
           </div>
           <div className="form-group">
             <textarea
@@ -237,11 +179,7 @@ const EditProfile = ({
           </div>
 
           <div className="my-2">
-            <button
-              onClick={() => toggleSocialInputs(!displaySocialInputs)}
-              type="button"
-              className="btn btn-light"
-            >
+            <button onClick={() => toggleSocialInputs(!displaySocialInputs)} type="button" className="btn btn-light">
               Add Social Network Links
             </button>
             <span>Optional</span>
@@ -327,6 +265,4 @@ const mapStateToProps = (state) => ({
   auth: state.auth,
 });
 
-export default connect(mapStateToProps, { createProfile, getCurrentProfile })(
-  withRouter(EditProfile)
-);
+export default connect(mapStateToProps, { createProfile, getCurrentProfile })(withRouter(EditProfile));

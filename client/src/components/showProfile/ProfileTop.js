@@ -1,5 +1,5 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 
 const ProfileTop = ({
   profile: {
@@ -16,11 +16,7 @@ const ProfileTop = ({
   return (
     <div className="profile-top">
       <div className="profile-profile bg-primary">
-        <img
-          className="round-img"
-          src={!profileImg ? avatar : profileImg}
-          alt="avatar"
-        />
+        <img className="round-img" src={!profileImg ? avatar : profileImg} alt="avatar" />
         <h1 className="large">{name}</h1>
         <p className="middle-text">
           {status} {company && <span> at {company} </span>}
@@ -53,11 +49,7 @@ const ProfileTop = ({
             </a>
           )}
           {social && social.instagram && (
-            <a
-              href={social.instagram}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
+            <a href={social.instagram} target="_blank" rel="noopener noreferrer">
               <i className="fab fa-instagram fa-2x"></i>
             </a>
           )}

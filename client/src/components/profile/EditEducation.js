@@ -1,56 +1,38 @@
-import React, { useState, Fragment, useEffect } from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { Link, withRouter } from "react-router-dom";
-import Spinner from "../layout/Spinner";
-import {
-  getCurrentEducation,
-  setCurrentEducation,
-} from "../../actions/profile";
+import React, { useState, Fragment, useEffect } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { Link, withRouter } from 'react-router-dom';
+import Spinner from '../layout/Spinner';
+import { getCurrentEducation, setCurrentEducation } from '../../actions/profile';
 
-const EditEducation = ({
-  getCurrentEducation,
-  setCurrentEducation,
-  profile: { profile, loading },
-  match,
-}) => {
+const EditEducation = ({ getCurrentEducation, setCurrentEducation, profile: { profile, loading }, match }) => {
   const [formData, setFormData] = useState({
-    school: "",
-    degree: "",
-    fieldofstudy: "",
-    from: "",
-    to: "",
+    school: '',
+    degree: '',
+    fieldofstudy: '',
+    from: '',
+    to: '',
     current: false,
-    description: "",
+    description: '',
   });
 
   const [toDateDisabled, toggleDisabled] = useState(false);
 
-  const {
-    school,
-    degree,
-    fieldofstudy,
-    from,
-    to,
-    current,
-    description,
-  } = formData;
+  const { school, degree, fieldofstudy, from, to, current, description } = formData;
 
   /*eslint-disable */
   useEffect(() => {
     getCurrentEducation(match.params.id);
-    const dateFrom = loading || !profile.from ? "" : profile.from;
-    const dateTo = loading || !profile.to ? "" : profile.to;
+    const dateFrom = loading || !profile.from ? '' : profile.from;
+    const dateTo = loading || !profile.to ? '' : profile.to;
     setFormData({
-      school: loading || !profile.school ? "" : profile.school,
-      degree: loading || !profile.degree ? "" : profile.degree,
-      fieldofstudy:
-        loading || !profile.fieldofstudy ? "" : profile.fieldofstudy,
-      from:
-        loading || !dateFrom.substring(0, 10) ? "" : dateFrom.substring(0, 10),
-      to: loading || !dateTo.substring(0, 10) ? "" : dateTo.substring(0, 10),
-      current: loading || !profile.current ? "" : profile.current,
-      description: loading || !profile.description ? "" : profile.description,
+      school: loading || !profile.school ? '' : profile.school,
+      degree: loading || !profile.degree ? '' : profile.degree,
+      fieldofstudy: loading || !profile.fieldofstudy ? '' : profile.fieldofstudy,
+      from: loading || !dateFrom.substring(0, 10) ? '' : dateFrom.substring(0, 10),
+      to: loading || !dateTo.substring(0, 10) ? '' : dateTo.substring(0, 10),
+      current: loading || !profile.current ? '' : profile.current,
+      description: loading || !profile.description ? '' : profile.description,
     });
   }, []);
   /*eslint-enable */
@@ -73,8 +55,7 @@ const EditEducation = ({
       <div className="paddingSection">
         <h1 className="large text-primary"> Change your education </h1>
         <p className="lead">
-          <i className="fas fa-user"> </i> Let's change some information to make
-          your education stand out
+          <i className="fas fa-user"> </i> Let's change some information to make your education stand out
         </p>
         <form className="form" onSubmit={(e) => onSubmit(e)}>
           <div className="form-group">
@@ -88,16 +69,8 @@ const EditEducation = ({
             />
           </div>
           <div className="form-group">
-            <input
-              type="text"
-              placeholder="degree"
-              name="degree"
-              value={degree}
-              onChange={(e) => onChange(e)}
-            />
-            <small className="form-text">
-              City & state suggested (eg. Boston, MA)
-            </small>
+            <input type="text" placeholder="degree" name="degree" value={degree} onChange={(e) => onChange(e)} />
+            <small className="form-text">City & state suggested (eg. Boston, MA)</small>
           </div>
           <div className="form-group">
             <input
@@ -110,13 +83,7 @@ const EditEducation = ({
           </div>
           <div className="form-group">
             <h4> From Date </h4>
-            <input
-              type="date"
-              name="from"
-              value={from}
-              onChange={(e) => onChange(e)}
-              required
-            />
+            <input type="date" name="from" value={from} onChange={(e) => onChange(e)} required />
           </div>
           <div className="form-group">
             <p>
@@ -128,7 +95,7 @@ const EditEducation = ({
                   onChange(e);
                   toggleDisabled(!toDateDisabled);
                 }}
-              />{" "}
+              />{' '}
               Current School or Bootcamp
             </p>
           </div>
@@ -139,7 +106,7 @@ const EditEducation = ({
               name="to"
               value={to}
               onChange={(e) => onChange(e)}
-              disabled={toDateDisabled ? "disabled" : ""}
+              disabled={toDateDisabled ? 'disabled' : ''}
             />
           </div>
           <div className="form-group">

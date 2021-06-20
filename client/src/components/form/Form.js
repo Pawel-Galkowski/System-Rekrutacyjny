@@ -1,28 +1,21 @@
-import React, { Fragment, useEffect, useState } from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { Link } from "react-router-dom";
-import Spinner from "../layout/Spinner";
-import { withRouter } from "react-router-dom";
-import { getForm, addResponseToForm } from "../../actions/form";
-import axios from "axios";
+import React, { Fragment, useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import Spinner from '../layout/Spinner';
+import { withRouter } from 'react-router-dom';
+import { getForm, addResponseToForm } from '../../actions/form';
+import axios from 'axios';
 
-const Forms = ({
-  auth,
-  getForm,
-  addResponseToForm,
-  forms: { form, loading },
-  history,
-  match,
-}) => {
+const Forms = ({ auth, getForm, addResponseToForm, forms: { form, loading }, history, match }) => {
   useEffect(() => {
     getForm(match.params.company, match.params.id);
   }, [getForm, match]);
 
   const company = match.params.company;
 
-  const [answer, setAnswer] = useState("");
-  const [fileData, setFileData] = useState("");
+  const [answer, setAnswer] = useState('');
+  const [fileData, setFileData] = useState('');
   const [formData, setFormData] = useState([]);
   const onChange = (e) => {
     setAnswer({ ...answer, [e.target.name]: e.target.value });
@@ -40,12 +33,12 @@ const Forms = ({
 
   const chceckType = (name) => {
     let goodFile = false;
-    let afterDot = name.split(".").pop();
+    let afterDot = name.split('.').pop();
     switch (afterDot.toLowerCase()) {
-      case "pdf":
+      case 'pdf':
         goodFile = true;
         break;
-      case "docx":
+      case 'docx':
         goodFile = true;
         break;
       default:
@@ -60,9 +53,7 @@ const Forms = ({
       if (isGood) {
         setFile(elem.target.files[0]);
       } else {
-        alert(
-          "Wrong file format. File will not be added!. \nAvailable formats: PDF, DOCX"
-        );
+        alert('Wrong file format. File will not be added!. \nAvailable formats: PDF, DOCX');
       }
     }
   };
@@ -72,29 +63,25 @@ const Forms = ({
       const isGood = chceckType(file.name);
       if (isGood) {
         const formData = new FormData();
-        formData.append("file", file);
-        formData.append("user", auth.user._id);
+        formData.append('file', file);
+        formData.append('user', auth.user._id);
         try {
-          const res = await axios.post(
-            `/uploads/${company}/${auth.user._id}`,
-            formData,
-            {
-              headers: {
-                "Content-Type": "multipart/form-data",
-              },
-            }
-          );
+          const res = await axios.post(`/uploads/${company}/${auth.user._id}`, formData, {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+            },
+          });
           const { filePath } = res.data;
           setFileData(filePath);
         } catch (err) {
           if (err.response.status === 500) {
-            console.log("There was a problem with the server");
+            console.log('There was a problem with the server');
           } else {
-            console.log("File with that name exist");
+            console.log('File with that name exist');
           }
         }
       } else {
-        alert("Not valid file");
+        alert('Not valid file');
       }
     }
   };
@@ -113,30 +100,15 @@ const Forms = ({
             <Fragment key={index}>
               <div className="form-group">
                 <label>{el}</label>
-                <input
-                  type="text"
-                  placeholder={el}
-                  name={index}
-                  required
-                  onChange={onChange}
-                />
+                <input type="text" placeholder={el} name={index} required onChange={onChange} />
               </div>
             </Fragment>
           ))}
           <div className="custom-file">
-            <input
-              type="file"
-              className="custom-file-input"
-              id="customFile"
-              onChange={(e) => handleFile(e)}
-            />
+            <input type="file" className="custom-file-input" id="customFile" onChange={(e) => handleFile(e)} />
             {fileData ? <span>File added</span> : null}
             <br />
-            <button
-              type="button"
-              className="btn btn-light"
-              onClick={(e) => uploadFile(e)}
-            >
+            <button type="button" className="btn btn-light" onClick={(e) => uploadFile(e)}>
               Upload file
             </button>
           </div>
@@ -159,6 +131,4 @@ const mapStateToProps = (state) => ({
   auth: state.auth,
 });
 
-export default connect(mapStateToProps, { getForm, addResponseToForm })(
-  withRouter(Forms)
-);
+export default connect(mapStateToProps, { getForm, addResponseToForm })(withRouter(Forms));

@@ -1,13 +1,13 @@
-import React, { Fragment } from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import Moment from "react-moment";
-import { deleteExperience } from "../../actions/profile";
-import { Link } from "react-router-dom";
+import React, { Fragment } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import Moment from 'react-moment';
+import { deleteExperience } from '../../actions/profile';
+import { Link } from 'react-router-dom';
 
 const Experience = ({ experience, deleteExperience }) => {
   const submitOperation = (id) => {
-    if (window.confirm("Do you really want to remove that experience?")) {
+    if (window.confirm('Do you really want to remove that experience?')) {
       deleteExperience(id);
     }
   };
@@ -18,26 +18,16 @@ const Experience = ({ experience, deleteExperience }) => {
       <td>{exp.location}</td>
       <td>{exp.title}</td>
       <td className="hide-md">
-        <Moment format="YYYY/MM/DD">{exp.from}</Moment> -{" "}
-        {exp.to === null ? (
-          "Now"
-        ) : (
-          <Moment format="YYYY/MM/DD">{exp.to}</Moment>
-        )}
+        <Moment format="YYYY/MM/DD">{exp.from}</Moment> -{' '}
+        {exp.to === null ? 'Now' : <Moment format="YYYY/MM/DD">{exp.to}</Moment>}
       </td>
       <td>
-        <Link
-          to={{ pathname: `/edit-experience/${exp._id}`, query: `${exp._id}` }}
-          className="btn btn-light"
-        >
+        <Link to={{ pathname: `/edit-experience/${exp._id}`, query: `${exp._id}` }} className="btn btn-light">
           <i className="far fa-edit fa-2x"></i>
         </Link>
       </td>
       <td>
-        <i
-          className="far fa-window-close fa-2x"
-          onClick={() => submitOperation(exp._id)}
-        ></i>
+        <i className="far fa-window-close fa-2x" onClick={() => submitOperation(exp._id)}></i>
       </td>
     </tr>
   ));
@@ -49,18 +39,14 @@ const Experience = ({ experience, deleteExperience }) => {
         <td>{exp.company}</td>
       </tr>
       <tr>
-      <th>Location</th>
+        <th>Location</th>
         <td>
-          <Moment format="YYYY/MM/DD">{exp.from}</Moment> -{" "}
-          {exp.to === null ? (
-            "Now"
-          ) : (
-            <Moment format="YYYY/MM/DD">{exp.to}</Moment>
-          )}
+          <Moment format="YYYY/MM/DD">{exp.from}</Moment> -{' '}
+          {exp.to === null ? 'Now' : <Moment format="YYYY/MM/DD">{exp.to}</Moment>}
         </td>
       </tr>
       <tr>
-      <th>Edit</th>
+        <th>Edit</th>
         <td>
           <Link
             to={{
@@ -74,12 +60,9 @@ const Experience = ({ experience, deleteExperience }) => {
         </td>
       </tr>
       <tr className="strong-bottom">
-      <th>Remove</th>
+        <th>Remove</th>
         <td>
-          <i
-            className="far fa-window-close fa-2x"
-            onClick={() => submitOperation(exp._id)}
-          ></i>
+          <i className="far fa-window-close fa-2x" onClick={() => submitOperation(exp._id)}></i>
         </td>
       </tr>
     </Fragment>

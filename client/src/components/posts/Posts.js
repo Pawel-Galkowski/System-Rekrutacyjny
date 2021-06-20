@@ -1,18 +1,13 @@
-import React, { Fragment, useEffect } from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import Spinner from "../layout/Spinner";
-import PostItem from "./PostItem";
-import { getProfiles } from "../../actions/profile";
-import { getPosts } from "../../actions/post";
-import PostForm from "./PostForm";
+import React, { Fragment, useEffect } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import Spinner from '../layout/Spinner';
+import PostItem from './PostItem';
+import { getProfiles } from '../../actions/profile';
+import { getPosts } from '../../actions/post';
+import PostForm from './PostForm';
 
-const Posts = ({
-  getProfiles,
-  profile,
-  getPosts,
-  post: { posts, loading },
-}) => {
+const Posts = ({ getProfiles, profile, getPosts, post: { posts, loading } }) => {
   useEffect(() => {
     getProfiles();
     getPosts();

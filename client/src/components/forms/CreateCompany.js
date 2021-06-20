@@ -1,35 +1,30 @@
-import React, { useState, Fragment } from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
-import { addCompany } from "../../actions/form";
+import React, { useState, Fragment } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import { addCompany } from '../../actions/form';
 
 const CreateCompany = ({ addCompany }) => {
   var [formData, setFormData] = useState({
-    company: "",
-    nip: "",
+    company: '',
+    nip: '',
   });
 
   var { company, nip } = formData;
 
-  const onChange = (e) =>
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+  const onChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const onSubmit = (e) => {
     addCompany(formData);
     setFormData('');
-    formData = "";
+    formData = '';
   };
 
   return (
     <Fragment>
       <div className="form-box">
         <h1>Create your company profile</h1>
-        <form
-          className="form"
-          id="createCompanyForm"
-          onSubmit={(e) => onSubmit(e)}
-        >
+        <form className="form" id="createCompanyForm" onSubmit={(e) => onSubmit(e)}>
           <input
             type="text"
             placeholder="Company name"
@@ -38,14 +33,7 @@ const CreateCompany = ({ addCompany }) => {
             onChange={(e) => onChange(e)}
             required
           />
-          <input
-            type="text"
-            name="nip"
-            placeholder="NIP"
-            value={nip}
-            onChange={(e) => onChange(e)}
-            required
-          />
+          <input type="text" name="nip" placeholder="NIP" value={nip} onChange={(e) => onChange(e)} required />
           <input type="submit" className="btn btn-dark my-1" value="Submit" />
         </form>
       </div>

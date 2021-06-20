@@ -1,15 +1,13 @@
-var User = require("../models/User");
-var Promise = require("bluebird");
-var gravatar = require("gravatar");
-var bcrypt = require("bcryptjs");
-var validation = require("../validation");
+var User = require('../models/User');
+var Promise = require('bluebird');
+var gravatar = require('gravatar');
+var bcrypt = require('bcryptjs');
+var validation = require('../validation');
 
 module.exports = {
   post: (params, isRaw) => {
     return new Promise((resolve, reject) => {
-      const { errors, isValid } = validation.register.validateRegisterInput(
-        params
-      );
+      const { errors, isValid } = validation.register.validateRegisterInput(params);
 
       if (!isValid) {
         reject(errors);
@@ -21,21 +19,21 @@ module.exports = {
           return;
         }
         if (user) {
-          errors.email = "Email already exists";
+          errors.email = 'Email already exists';
           reject(errors);
           return;
         }
 
         var avatar = gravatar.url(params.email, {
           s: 200, //size
-          r: "pg", //rating
-          d: "mm" //default
+          r: 'pg', //rating
+          d: 'mm', //default
         });
-        params["avatar"] = avatar;
+        params['avatar'] = avatar;
 
         // encrypt password
         var password = params.password;
-        params["password"] = bcrypt.hashSync(password, 10);
+        params['password'] = bcrypt.hashSync(password, 10);
 
         User.create(params, (err, user) => {
           if (err) {
@@ -62,24 +60,21 @@ module.exports = {
           return;
         }
         if (!user) {
-          errors.email = "User not found";
+          errors.email = 'User not found';
           reject(errors);
           return;
         }
 
-        if(!user.confirmed){
-          errors.user = "User not confirmed";
+        if (!user.confirmed) {
+          errors.user = 'User not confirmed';
           reject(errors);
           return;
         }
 
         // check password
-        var passwordCorrect = bcrypt.compareSync(
-          params.password,
-          user.password
-        );
+        var passwordCorrect = bcrypt.compareSync(params.password, user.password);
         if (passwordCorrect == false) {
-          errors.password = "wrong password provided";
+          errors.password = 'wrong password provided';
           reject(errors);
           return;
         }
@@ -99,5 +94,5 @@ module.exports = {
         else resolve(user.summary());
       });
     });
-  }
+  },
 };

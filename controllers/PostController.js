@@ -1,7 +1,7 @@
-var Post = require("../models/Post");
-var Profile = require("../models/Profile");
-var Promise = require("bluebird");
-var validation = require("../validation");
+var Post = require('../models/Post');
+var Profile = require('../models/Profile');
+var Promise = require('bluebird');
+var validation = require('../validation');
 
 function checkErrors(user, params, callback) {
   const { errors, isValid } = validation.post.validatePostInput(params);
@@ -20,11 +20,9 @@ function checkErrors(user, params, callback) {
 
 function postLikeUnlike(user, post, action, callback) {
   const errors = {};
-  if (action == "like") {
-    if (
-      post.likes.filter((like) => like.user.toString() === user.id).length > 0
-    ) {
-      errors.alreadyLiked = "User has already liked this post";
+  if (action == 'like') {
+    if (post.likes.filter((like) => like.user.toString() === user.id).length > 0) {
+      errors.alreadyLiked = 'User has already liked this post';
       callback(errors, null);
       return;
     }
@@ -33,17 +31,13 @@ function postLikeUnlike(user, post, action, callback) {
     });
     callback(null, post);
   }
-  if (action == "unlike") {
-    if (
-      post.likes.filter((like) => like.user.toString() === user.id).length === 0
-    ) {
-      errors.notLiked = "You have not yet liked this post";
+  if (action == 'unlike') {
+    if (post.likes.filter((like) => like.user.toString() === user.id).length === 0) {
+      errors.notLiked = 'You have not yet liked this post';
       callback(errors, null);
       return;
     }
-    const removeIndex = post.likes
-      .map((item) => item.user.toString())
-      .indexOf(user.id);
+    const removeIndex = post.likes.map((item) => item.user.toString()).indexOf(user.id);
     post.likes.splice(removeIndex, 1);
     callback(null, post);
   }
@@ -76,7 +70,7 @@ module.exports = {
         .exec((err, posts) => {
           if (err) {
             reject({
-              not_found: "No posts found",
+              not_found: 'No posts found',
             });
             return;
           }
@@ -89,7 +83,7 @@ module.exports = {
       Post.findById(params, (err, post) => {
         if (err) {
           reject({
-            not_found: "No post found with that ID",
+            not_found: 'No post found with that ID',
           });
           return;
         }
@@ -110,7 +104,7 @@ module.exports = {
             return;
           }
           if (!profile) {
-            errors.profile = "There is no profile for this user";
+            errors.profile = 'There is no profile for this user';
             reject(errors);
             return;
           }
@@ -120,7 +114,7 @@ module.exports = {
               return;
             }
             if (post.user.toString() !== user.id) {
-              errors.notAuthorized = "User not authorized";
+              errors.notAuthorized = 'User not authorized';
               reject(errors);
               return;
             }
@@ -149,7 +143,7 @@ module.exports = {
             return;
           }
           if (!profile) {
-            errors.profile = "No profile found for this user";
+            errors.profile = 'No profile found for this user';
             reject(errors);
             return;
           }
@@ -185,7 +179,7 @@ module.exports = {
         }
         Post.findById(id, (err, post) => {
           if (err) {
-            reject({ not_found: "No post found" });
+            reject({ not_found: 'No post found' });
             return;
           }
           post.comments.unshift(data);
@@ -208,18 +202,12 @@ module.exports = {
           reject(err);
           return;
         }
-        if (
-          post.comments.filter(
-            (comment) => comment._id.toString() === commentid
-          ).length === 0
-        ) {
-          errors.commentnotfound = "comment not found";
+        if (post.comments.filter((comment) => comment._id.toString() === commentid).length === 0) {
+          errors.commentnotfound = 'comment not found';
           reject(errors);
           return;
         }
-        const removeIndex = post.comments
-          .map((item) => item._id.toString())
-          .indexOf(commentid);
+        const removeIndex = post.comments.map((item) => item._id.toString()).indexOf(commentid);
         post.comments.splice(removeIndex, 1);
         post.save((err, post) => {
           if (err) {

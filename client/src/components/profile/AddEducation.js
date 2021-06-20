@@ -1,35 +1,26 @@
-import React, { useState, Fragment } from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { Link, withRouter } from "react-router-dom";
-import { addEducation } from "../../actions/profile";
-import Spinner from "../layout/Spinner";
+import React, { useState, Fragment } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { Link, withRouter } from 'react-router-dom';
+import { addEducation } from '../../actions/profile';
+import Spinner from '../layout/Spinner';
 
 const AddEducation = ({ addEducation, loading, history }) => {
   const [formData, setFormData] = useState({
-    school: "",
-    degree: "",
-    fieldofstudy: "",
-    from: "",
-    to: "",
+    school: '',
+    degree: '',
+    fieldofstudy: '',
+    from: '',
+    to: '',
     current: false,
-    description: "",
+    description: '',
   });
 
   const [toDateDisabled, toggleDisabled] = useState(false);
 
-  const {
-    school,
-    degree,
-    fieldofstudy,
-    from,
-    to,
-    current,
-    description,
-  } = formData;
+  const { school, degree, fieldofstudy, from, to, current, description } = formData;
 
-  const onChange = (e) =>
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+  const onChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -43,8 +34,7 @@ const AddEducation = ({ addEducation, loading, history }) => {
       <div className="paddingSection">
         <h1 className="large text-primary">Add Your Education</h1>
         <p className="lead">
-          <i className="fas fa-graduation-cap"></i> Add any school, bootcamp,
-          etc that you have attended
+          <i className="fas fa-graduation-cap"></i> Add any school, bootcamp, etc that you have attended
         </p>
         <small>* = required field</small>
         <form className="form" onSubmit={(e) => onSubmit(e)}>
@@ -79,13 +69,7 @@ const AddEducation = ({ addEducation, loading, history }) => {
           </div>
           <div className="form-group">
             <h4>From Date</h4>
-            <input
-              type="date"
-              name="from"
-              value={from}
-              onChange={(e) => onChange(e)}
-              required
-            />
+            <input type="date" name="from" value={from} onChange={(e) => onChange(e)} required />
           </div>
           <div className="form-group">
             <p>
@@ -98,7 +82,7 @@ const AddEducation = ({ addEducation, loading, history }) => {
                   setFormData({ ...formData, current: !current });
                   toggleDisabled(!toDateDisabled);
                 }}
-              />{" "}
+              />{' '}
               Current School or Bootcamp
             </p>
           </div>
@@ -109,7 +93,7 @@ const AddEducation = ({ addEducation, loading, history }) => {
               name="to"
               value={to}
               onChange={(e) => onChange(e)}
-              disabled={toDateDisabled ? "disabled" : ""}
+              disabled={toDateDisabled ? 'disabled' : ''}
             />
           </div>
           <div className="form-group">

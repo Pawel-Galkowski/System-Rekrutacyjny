@@ -1,5 +1,5 @@
-var jwt = require("jsonwebtoken");
-var Promise = require("bluebird");
+var jwt = require('jsonwebtoken');
+var Promise = require('bluebird');
 
 module.exports = {
   sign: (obj, secret) => {
@@ -15,5 +15,5 @@ module.exports = {
         resolve(decode);
       });
     });
-  }
+  },
 };

@@ -1,6 +1,6 @@
-var JwtStrategy = require("passport-jwt").Strategy;
-var ExtractJwt = require("passport-jwt").ExtractJwt;
-var controllers = require("../controllers");
+var JwtStrategy = require('passport-jwt').Strategy;
+var ExtractJwt = require('passport-jwt').ExtractJwt;
+var controllers = require('../controllers');
 
 var opts = {};
 opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
@@ -16,7 +16,7 @@ module.exports = (passport) => {
           return done(null, user);
         })
         .catch((err) => {
-          console.log("passport authentication Error: " + err);
+          console.log('passport authentication Error: ' + err);
           return;
         });
     })

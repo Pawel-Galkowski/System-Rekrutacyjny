@@ -1,24 +1,24 @@
-﻿const express = require("express");
+﻿const express = require('express');
 const router = express.Router();
-const gravatar = require("gravatar");
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
-const keys = require("../../config/keys");
-const passport = require("passport");
-const activationMailer = require("../../middleware/mailer");
-const recoveryMailer = require("../../middleware/reMailer");
-const { check, validationResult } = require("express-validator/check");
+const gravatar = require('gravatar');
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const keys = require('../../config/keys');
+const passport = require('passport');
+const activationMailer = require('../../middleware/mailer');
+const recoveryMailer = require('../../middleware/reMailer');
+const { check, validationResult } = require('express-validator/check');
 
-const validateLoginImput = require("../../validation/login");
+const validateLoginImput = require('../../validation/login');
 
-const User = require("../../models/User");
+const User = require('../../models/User');
 
 router.post(
-  "/",
+  '/',
   [
-    check("name", "Name is required").not().isEmpty(),
-    check("email", "Please include a valid email").isEmail(),
-    check("password", "Please enter a stronger password").isLength({ min: 6 }),
+    check('name', 'Name is required').not().isEmpty(),
+    check('email', 'Please include a valid email').isEmail(),
+    check('password', 'Please enter a stronger password').isLength({ min: 6 }),
   ],
   async (req, res) => {
     const errors = validationResult(req);
@@ -30,12 +30,12 @@ router.post(
     try {
       let user = await User.findOne({ email });
       if (user) {
-        return res.status(400).json({ errors: [{ msg: "User exist" }] });
+        return res.status(400).json({ errors: [{ msg: 'User exist' }] });
       }
       const avatar = gravatar.url(req.body.email, {
-        s: "200",
-        r: "pg",
-        d: "mm",
+        s: '200',
+        r: 'pg',
+        d: 'mm',
       });
 
       const salty = await bcrypt.genSalt(10);
@@ -64,10 +64,10 @@ router.post(
 
       if (finChecker == true) {
         await user.save();
-        return res.redirect("/login");
+        return res.redirect('/login');
       }
     } catch (err) {
-      res.status(500).send("Server error");
+      res.status(500).send('Server error');
     }
   }
 );
@@ -76,21 +76,21 @@ router.post(
 // @desc    POST Login form
 // @access  Private
 
-router.post("/login", (req, res) => {
+router.post('/login', (req, res) => {
   const { errors } = validateLoginImput(req.body);
   const email = req.body.email;
   const password = req.body.passowrd;
 
   User.findOne({ email }).then((user) => {
     if (!user) {
-      errors.email = "User not found";
+      errors.email = 'User not found';
       return res.status(404).json(errors);
     }
     const { confirmed } = User;
     bcrypt.compare(password, user.passowrd).then((isMatch) => {
       if (isMatch) {
         if (confirmed !== true) {
-          errors.user = "Please confirm email first";
+          errors.user = 'Please confirm email first';
           return res.status(404).json(errors);
         } else {
           const payload = {
@@ -99,20 +99,15 @@ router.post("/login", (req, res) => {
             avatar: user.avatar,
           };
 
-          jwt.sign(
-            payload,
-            keys.secretOrKey,
-            { expiresIn: 360000 },
-            (err, token) => {
-              res.json({
-                sucess: true,
-                token: token,
-              });
-            }
-          );
+          jwt.sign(payload, keys.secretOrKey, { expiresIn: 360000 }, (err, token) => {
+            res.json({
+              sucess: true,
+              token: token,
+            });
+          });
         }
       } else {
-        errors.password = "Password inccorect";
+        errors.password = 'Password inccorect';
         return res.status(400).json(errors);
       }
     });
@@ -120,8 +115,8 @@ router.post("/login", (req, res) => {
 });
 
 router.get(
-  "/current",
-  passport.authenticate("jwt", { session: false }, (req, res) => {
+  '/current',
+  passport.authenticate('jwt', { session: false }, (req, res) => {
     res.json({
       id: req.user.id,
       name: req.user.name,
@@ -131,37 +126,34 @@ router.get(
   })
 );
 
-router.post("/confirmation/:token", async (req, res) => {
+router.post('/confirmation/:token', async (req, res) => {
   try {
     const email = req.body.email;
     const token = req.params.token;
     let verifyuser = await User.findOne({ email });
-    const secret_token = await bcrypt.hash(
-      verifyuser.id,
-      verifyuser.confirmedKey
-    );
+    const secret_token = await bcrypt.hash(verifyuser.id, verifyuser.confirmedKey);
     let { user } = jwt.verify(token, secret_token);
     if (verifyuser._id == user) {
       await verifyuser.updateOne({ confirmed: true });
       await verifyuser.updateOne({ $unset: { confirmedKey: 1 } });
     } else {
-      return res.status(400).json({ errors: [{ msg: "Invalid Credentials" }] });
+      return res.status(400).json({ errors: [{ msg: 'Invalid Credentials' }] });
     }
   } catch (err) {
-    return res.status(400).json({ errors: [{ msg: "Cannot confirm user" }] });
+    return res.status(400).json({ errors: [{ msg: 'Cannot confirm user' }] });
   }
 });
 
-router.post("/recovery", async (req, res) => {
+router.post('/recovery', async (req, res) => {
   try {
     const email = req.body.email;
     const recoveryUser = await User.findOne({ email });
     const salty = await bcrypt.genSalt(10);
     const secret_key = await bcrypt.hash(email, salty);
     const newRecoveryToken = await bcrypt.hash(email, secret_key);
-    const cleanToken = newRecoveryToken.replace(/[/]/g, "");
-    if (recoveryUser == "") {
-      return res.status(400).json({ errors: [{ msg: "Invalid Credentials" }] });
+    const cleanToken = newRecoveryToken.replace(/[/]/g, '');
+    if (recoveryUser == '') {
+      return res.status(400).json({ errors: [{ msg: 'Invalid Credentials' }] });
     } else {
       const resEmail = recoveryMailer(recoveryUser, cleanToken);
       var finChecker = await resEmail.then((value) => {
@@ -175,11 +167,11 @@ router.post("/recovery", async (req, res) => {
       return true;
     }
   } catch (err) {
-    return res.status(400).json({ errors: [{ msg: "Invalid  Email" }] });
+    return res.status(400).json({ errors: [{ msg: 'Invalid  Email' }] });
   }
 });
 
-router.post("/recovery/:token", async (req, res) => {
+router.post('/recovery/:token', async (req, res) => {
   try {
     const email = req.body.email;
     const newPassword = req.body.password;
@@ -191,10 +183,10 @@ router.post("/recovery/:token", async (req, res) => {
       await recoveryUser.updateOne({ password: cryptPassword });
       await recoveryUser.updateOne({ $unset: { recoveryToken: 1 } });
     } else {
-      return res.status(400).json({ errors: [{ msg: "Invalid Credentials" }] });
+      return res.status(400).json({ errors: [{ msg: 'Invalid Credentials' }] });
     }
   } catch (err) {
-    return res.status(400).json({ errors: [{ msg: "Cannot update user" }] });
+    return res.status(400).json({ errors: [{ msg: 'Cannot update user' }] });
   }
 });
 

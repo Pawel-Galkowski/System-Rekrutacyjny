@@ -1,17 +1,10 @@
-import React, { Fragment } from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { Link } from "react-router-dom";
-import { removeForm } from "../../actions/form";
+import React, { Fragment } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { removeForm } from '../../actions/form';
 
-const CompanyForms = ({
-  auth,
-  removeForm,
-  company,
-  formTable: { _id, responses, body },
-  admins,
-  name,
-}) => (
+const CompanyForms = ({ auth, removeForm, company, formTable: { _id, responses, body }, admins, name }) => (
   <div className="formItem bg-white">
     <div>
       <h3>{name}</h3>
@@ -23,15 +16,7 @@ const CompanyForms = ({
       <h1>{body && body.title}</h1>
       <h2>Skills: {body && body.skills}</h2>
       <div className="marginUpDown-1 hide-sm">
-        {body && body.body ? (
-          body.body.length > 100 ? (
-            body.body.substring(0, 97) + "..."
-          ) : (
-            body.body
-          )
-        ) : (
-          <p></p>
-        )}
+        {body && body.body ? body.body.length > 100 ? body.body.substring(0, 97) + '...' : body.body : <p></p>}
       </div>
       <Link to={`/api/forms/${company}/${_id}`}>
         <h4>Apply for that position</h4>
@@ -46,11 +31,7 @@ const CompanyForms = ({
           <Link to={`/api/forms/res/${company}/${_id}`}>
             <h4>Check responses</h4>
           </Link>
-          <button
-            onClick={(e) => removeForm(company, _id)}
-            type="button"
-            className="btn btn-danger"
-          >
+          <button onClick={(e) => removeForm(company, _id)} type="button" className="btn btn-danger">
             Remove &nbsp;<i className="fas fa-trash-alt"></i>
           </button>
         </Fragment>

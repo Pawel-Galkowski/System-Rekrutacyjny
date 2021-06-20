@@ -1,22 +1,15 @@
-import React, { Fragment } from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { Link } from "react-router-dom";
-import { removeResponse } from "./../../actions/form";
-import Spinner from "../layout/Spinner";
+import React, { Fragment } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { removeResponse } from './../../actions/form';
+import Spinner from '../layout/Spinner';
 
-const FormResponse = ({
-  removeResponse,
-  form: { _id, user, answer, file, loading },
-  profile,
-  match,
-}) => {
+const FormResponse = ({ removeResponse, form: { _id, user, answer, file, loading }, profile, match }) => {
   var singleProfile, profileImg;
 
   if (profile && profile !== undefined) {
-    singleProfile = singleProfile = profile.filter(
-      (x) => x.user._id === user
-    )[0];
+    singleProfile = singleProfile = profile.filter((x) => x.user._id === user)[0];
     profileImg = singleProfile && singleProfile.profileImg ? singleProfile.profileImg : null;
   }
   return profile !== undefined && loading ? (
@@ -50,19 +43,17 @@ const FormResponse = ({
             )}
           </ol>
         </div>
-        {file && file !== "" ? (
+        {file && file !== '' ? (
           <div>
-            My CV:{" "}
+            My CV:{' '}
             <a href={`${file}`} download>
-              Download now{" "}
+              Download now{' '}
             </a>
           </div>
         ) : null}
         <hr />
         <button
-          onClick={(e) =>
-            removeResponse(match.params.company, match.params.id, _id)
-          }
+          onClick={(e) => removeResponse(match.params.company, match.params.id, _id)}
           type="button"
           className="btn btn-danger marginUpDown-1"
         >

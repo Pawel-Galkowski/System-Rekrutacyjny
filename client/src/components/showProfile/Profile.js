@@ -1,21 +1,16 @@
-import React, { Fragment, useEffect } from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import Spinner from "../layout/Spinner";
-import { Link } from "react-router-dom";
-import ProfileTop from "./ProfileTop";
-import { getProfileById } from "../../actions/profile";
-import ProfileAbout from "./ProfileAbout";
-import ProfileExperience from "../showProfile/ProfileExp";
-import ProfileEducation from "../showProfile/ProfileEdu";
-import ProfileGithub from "../showProfile/ProfileGithub";
+import React, { Fragment, useEffect } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import Spinner from '../layout/Spinner';
+import { Link } from 'react-router-dom';
+import ProfileTop from './ProfileTop';
+import { getProfileById } from '../../actions/profile';
+import ProfileAbout from './ProfileAbout';
+import ProfileExperience from '../showProfile/ProfileExp';
+import ProfileEducation from '../showProfile/ProfileEdu';
+import ProfileGithub from '../showProfile/ProfileGithub';
 
-const Profile = ({
-  match,
-  getProfileById,
-  profile: { profile, loading },
-  auth,
-}) => {
+const Profile = ({ match, getProfileById, profile: { profile, loading }, auth }) => {
   useEffect(() => {
     getProfileById(match.params.id);
   }, [getProfileById, match.params.id]);
@@ -53,10 +48,7 @@ const Profile = ({
                   {profile.experience.length > 0 ? (
                     <Fragment>
                       {profile.experience.map((experience) => (
-                        <ProfileExperience
-                          key={experience._id}
-                          experience={experience}
-                        />
+                        <ProfileExperience key={experience._id} experience={experience} />
                       ))}
                     </Fragment>
                   ) : (
@@ -68,10 +60,7 @@ const Profile = ({
                   {profile.education.length > 0 ? (
                     <Fragment>
                       {profile.education.map((education) => (
-                        <ProfileEducation
-                          key={education._id}
-                          education={education}
-                        />
+                        <ProfileEducation key={education._id} education={education} />
                       ))}
                     </Fragment>
                   ) : (
@@ -79,9 +68,7 @@ const Profile = ({
                   )}
                 </div>
               </div>
-              {profile.githubusername && (
-                <ProfileGithub username={profile.githubusername} />
-              )}
+              {profile.githubusername && <ProfileGithub username={profile.githubusername} />}
             </div>
           </Fragment>
         )}

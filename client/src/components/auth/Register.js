@@ -1,28 +1,27 @@
-import React, { Fragment, useState } from "react";
-import { connect } from "react-redux";
-import { Link, Redirect } from "react-router-dom";
-import { setAlert } from "../../actions/alert";
-import { register } from "../../actions/auth";
-import PropTypes from "prop-types";
+import React, { Fragment, useState } from 'react';
+import { connect } from 'react-redux';
+import { Link, Redirect } from 'react-router-dom';
+import { setAlert } from '../../actions/alert';
+import { register } from '../../actions/auth';
+import PropTypes from 'prop-types';
 
 const Register = ({ setAlert, register, isAuthenticated }) => {
   const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    password: "",
-    password2: "",
-    role: "user",
+    name: '',
+    email: '',
+    password: '',
+    password2: '',
+    role: 'user',
   });
 
   const { name, email, password, password2, role } = formData;
 
-  const onchange = (e) =>
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+  const onchange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const onSubmit = async (e) => {
     e.preventDefault();
     if (password !== password2) {
-      setAlert("Passwords do not match", "danger");
+      setAlert('Passwords do not match', 'danger');
     } else {
       register({
         name,
@@ -45,11 +44,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
               <div className="tabs-content">
                 <h3>Register Form</h3>
                 <div id="register-tab-content" className="active">
-                  <form
-                    className="register-form"
-                    onSubmit={(e) => onSubmit(e)}
-                    method="post"
-                  >
+                  <form className="register-form" onSubmit={(e) => onSubmit(e)} method="post">
                     <div className="input-box">
                       <div className="form-group">
                         <input
@@ -72,9 +67,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
                           onChange={(e) => onchange(e)}
                           required
                         />
-                        <small>
-                          Gravatar is supported on this page.
-                        </small>
+                        <small>Gravatar is supported on this page.</small>
                       </div>
                       <div className="form-group">
                         <input
@@ -105,7 +98,10 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
                   </form>
                   <div className="help-action">
                     <p className="forgot">
-                      Already have an account? <Link to="/login"><i className="fas fa-arrow-right"></i> Sign In <i className="fas fa-arrow-left"></i></Link>
+                      Already have an account?{' '}
+                      <Link to="/login">
+                        <i className="fas fa-arrow-right"></i> Sign In <i className="fas fa-arrow-left"></i>
+                      </Link>
                     </p>
                   </div>
                 </div>

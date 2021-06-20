@@ -1,22 +1,21 @@
-import React, { Fragment, useState } from "react";
-import { authorize } from "../../actions/auth";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
-import Alert from "../layout/Alert";
+import React, { Fragment, useState } from 'react';
+import { authorize } from '../../actions/auth';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import Alert from '../layout/Alert';
 
 const Authorize = ({ authorize }) => {
   const [formData, setFormData] = useState({
-    email: ""
+    email: '',
   });
 
   const { email } = formData;
   const fullUrl = window.location.href;
-  const token = fullUrl.replace(/([^]+)confirmation\//g, "");
+  const token = fullUrl.replace(/([^]+)confirmation\//g, '');
 
-  const onchange = e =>
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+  const onchange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
 
-  const onSubmit = async e => {
+  const onSubmit = async (e) => {
     e.preventDefault();
     authorize(email, token);
   };
@@ -32,10 +31,9 @@ const Authorize = ({ authorize }) => {
                 <Alert />
                 <div id="register-tab-content" className="active">
                   <p className="lead">
-                    <i className="fas fa-user"></i> Write your email to confirm
-                    account
+                    <i className="fas fa-user"></i> Write your email to confirm account
                   </p>
-                  <form className="register-form" onSubmit={e => onSubmit(e)}>
+                  <form className="register-form" onSubmit={(e) => onSubmit(e)}>
                     <div className="form-group">
                       <input
                         className="input"
@@ -43,15 +41,11 @@ const Authorize = ({ authorize }) => {
                         placeholder="Email Address"
                         name="email"
                         value={email}
-                        onChange={e => onchange(e)}
+                        onChange={(e) => onchange(e)}
                         required
                       />
                     </div>
-                    <input
-                      type="submit"
-                      className="button-change"
-                      value="Verify"
-                    />
+                    <input type="submit" className="button-change" value="Verify" />
                   </form>
                 </div>
               </div>
@@ -64,7 +58,7 @@ const Authorize = ({ authorize }) => {
 };
 
 Authorize.propTypes = {
-  authorize: PropTypes.func.isRequired
+  authorize: PropTypes.func.isRequired,
 };
 
 export default connect(null, { authorize })(Authorize);

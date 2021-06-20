@@ -1,7 +1,7 @@
-import React from "react";
-import { Link, Redirect } from "react-router-dom";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
+import React from 'react';
+import { Link, Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 const Landing = ({ isAuthenticated }) => {
   if (isAuthenticated) {
@@ -14,8 +14,7 @@ const Landing = ({ isAuthenticated }) => {
           <div className="landing-inner">
             <h1 className="x-large">Welcome to #JoinJobs</h1>
             <p className="lead">
-              Create a profile or portfolio, share posts and find{" "}
-              <u>your dream job</u>
+              Create a profile or portfolio, share posts and find <u>your dream job</u>
             </p>
             <div className="buttons">
               <Link to="/register" className="btn btn-primary">
@@ -31,10 +30,9 @@ const Landing = ({ isAuthenticated }) => {
               <div class="col-md-4">
                 <h2>Heading</h2>
                 <p>
-                  Donec id elit non mi porta gravida at eget metus. Fusce
-                  dapibus, tellus ac cursus commodo, tortor mauris condimentum
-                  nibh, ut fermentum massa justo sit amet risus. Etiam porta sem
-                  malesuada magna mollis euismod. Donec sed odio dui.
+                  Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor
+                  mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna
+                  mollis euismod. Donec sed odio dui.
                 </p>
                 <p>
                   <a class="btn" href="/login">
@@ -45,10 +43,9 @@ const Landing = ({ isAuthenticated }) => {
               <div class="col-md-4">
                 <h2>Heading</h2>
                 <p>
-                  Donec id elit non mi porta gravida at eget metus. Fusce
-                  dapibus, tellus ac cursus commodo, tortor mauris condimentum
-                  nibh, ut fermentum massa justo sit amet risus. Etiam porta sem
-                  malesuada magna mollis euismod. Donec sed odio dui.
+                  Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor
+                  mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna
+                  mollis euismod. Donec sed odio dui.
                 </p>
                 <p>
                   <a class="btn" href="/register">
@@ -59,10 +56,9 @@ const Landing = ({ isAuthenticated }) => {
               <div class="col-md-4">
                 <h2>Heading</h2>
                 <p>
-                  Donec id elit non mi porta gravida at eget metus. Fusce
-                  dapibus, tellus ac cursus commodo, tortor mauris condimentum
-                  nibh, ut fermentum massa justo sit amet risus. Etiam porta sem
-                  malesuada magna mollis euismod. Donec sed odio dui.
+                  Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor
+                  mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna
+                  mollis euismod. Donec sed odio dui.
                 </p>
                 <p>
                   <a class="btn" href="/dashboard">

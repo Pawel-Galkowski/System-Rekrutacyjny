@@ -1,17 +1,12 @@
-import React, { useEffect } from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { getCompanyForms } from "../../actions/form";
-import { Link } from "react-router-dom";
-import CompanyForms from "./CompanyForms";
-import Spinner from "../layout/Spinner";
+import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { getCompanyForms } from '../../actions/form';
+import { Link } from 'react-router-dom';
+import CompanyForms from './CompanyForms';
+import Spinner from '../layout/Spinner';
 
-const CompanyForm = ({
-  auth,
-  getCompanyForms,
-  forms: { forms, loading },
-  match,
-}) => {
+const CompanyForm = ({ auth, getCompanyForms, forms: { forms, loading }, match }) => {
   useEffect(() => {
     getCompanyForms(match.params.company);
   }, [getCompanyForms, match]);
@@ -22,10 +17,7 @@ const CompanyForm = ({
     <div className="paddingSection">
       {forms.admins && forms.admins.includes(auth.user._id) ? (
         <div className="mobile-center">
-          <Link
-            to={`/api/forms/create/${match.params.company}`}
-            className="btn btn-primary"
-          >
+          <Link to={`/api/forms/create/${match.params.company}`} className="btn btn-primary">
             Create new form
           </Link>
         </div>

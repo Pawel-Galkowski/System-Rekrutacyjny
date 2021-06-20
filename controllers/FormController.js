@@ -1,7 +1,7 @@
-var Form = require("../models/Forms");
-var Profile = require("../models/Profile");
-var Promise = require("bluebird");
-var validation = require("../validation");
+var Form = require('../models/Forms');
+var Profile = require('../models/Profile');
+var Promise = require('bluebird');
+var validation = require('../validation');
 
 function checkErrors(user, params, callback) {
   const { errors, isValid } = validation.form.validateFormInput(params);
@@ -48,7 +48,7 @@ module.exports = {
         .exec((err, forms) => {
           if (err) {
             reject({
-              not_found: "No forms found",
+              not_found: 'No forms found',
             });
             return;
           }
@@ -61,7 +61,7 @@ module.exports = {
       Form.findById(params, (err, form) => {
         if (err) {
           reject({
-            not_found: "No form found with that ID",
+            not_found: 'No form found with that ID',
           });
           return;
         }
@@ -82,7 +82,7 @@ module.exports = {
             return;
           }
           if (!profile) {
-            errors.profile = "There is no profile for this user";
+            errors.profile = 'There is no profile for this user';
             reject(errors);
             return;
           }
@@ -92,7 +92,7 @@ module.exports = {
               return;
             }
             if (form.company.admins.id.toString() !== user.id) {
-              errors.notAuthorized = "User not authorized";
+              errors.notAuthorized = 'User not authorized';
               reject(errors);
               return;
             }
@@ -117,7 +117,7 @@ module.exports = {
         }
         Form.findById(id, (err, form) => {
           if (err) {
-            reject({ not_found: "No form found" });
+            reject({ not_found: 'No form found' });
             return;
           }
           form.comments.unshift(data);
@@ -141,7 +141,7 @@ module.exports = {
         }
         Form.findById(id, (err, form) => {
           if (err) {
-            reject({ not_found: "No form found" });
+            reject({ not_found: 'No form found' });
             return;
           }
           form.comments.unshift(data);

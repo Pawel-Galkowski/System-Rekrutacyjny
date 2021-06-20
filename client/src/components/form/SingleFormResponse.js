@@ -1,16 +1,11 @@
-import React, { useEffect, Fragment } from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import Spinner from "./../layout/Spinner";
-import { getForm } from "../../actions/form";
-import FormResponse from "./FormResponse";
+import React, { useEffect, Fragment } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import Spinner from './../layout/Spinner';
+import { getForm } from '../../actions/form';
+import FormResponse from './FormResponse';
 
-const SingleFormResponse = ({
-  auth: { loading },
-  getForm,
-  forms: { form },
-  match,
-}) => {
+const SingleFormResponse = ({ auth: { loading }, getForm, forms: { form }, match }) => {
   useEffect(() => {
     getForm(match.params.company, match.params.id);
   }, [getForm, match]);
@@ -40,12 +35,8 @@ const SingleFormResponse = ({
         {form.responses &&
           form.responses.map((form) => (
             <Fragment key={form._id}>
-              {" "}
-              {form._id === match.params.response ? (
-                <FormResponse form={form} match={match} />
-              ) : (
-                <div></div>
-              )}
+              {' '}
+              {form._id === match.params.response ? <FormResponse form={form} match={match} /> : <div></div>}
             </Fragment>
           ))}
       </div>

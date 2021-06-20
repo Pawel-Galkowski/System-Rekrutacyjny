@@ -1,17 +1,12 @@
-import React, { useEffect, Fragment } from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { getCompanyForms } from "../../actions/form";
-import { Link } from "react-router-dom";
-import CompanyFormsSimple from "./CompanyFormsSimple";
-import Spinner from "../layout/Spinner";
+import React, { useEffect, Fragment } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { getCompanyForms } from '../../actions/form';
+import { Link } from 'react-router-dom';
+import CompanyFormsSimple from './CompanyFormsSimple';
+import Spinner from '../layout/Spinner';
 
-const SimpleForm = ({
-  auth,
-  getCompanyForms,
-  forms: { forms, loading },
-  match,
-}) => {
+const SimpleForm = ({ auth, getCompanyForms, forms: { forms, loading }, match }) => {
   useEffect(() => {
     getCompanyForms(match.params.company);
   }, [getCompanyForms, match]);

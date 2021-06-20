@@ -1,15 +1,10 @@
-import React, { useState, useEffect } from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { addComment } from "../../actions/post";
-import { getCurrentProfile } from "../../actions/profile";
+import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { addComment } from '../../actions/post';
+import { getCurrentProfile } from '../../actions/profile';
 
-const CommentForm = ({
-  addComment,
-  getCurrentProfile,
-  postId,
-  profile: { profile },
-}) => {
+const CommentForm = ({ addComment, getCurrentProfile, postId, profile: { profile } }) => {
   const [text, setText] = useState();
   useEffect(() => {
     getCurrentProfile();
@@ -26,7 +21,7 @@ const CommentForm = ({
         onSubmit={(e) => {
           e.preventDefault();
           addComment(postId, { text });
-          setText("");
+          setText('');
         }}
       >
         <textarea
@@ -54,6 +49,4 @@ const mapStateToProps = (state) => ({
   profile: state.profile,
 });
 
-export default connect(mapStateToProps, { addComment, getCurrentProfile })(
-  CommentForm
-);
+export default connect(mapStateToProps, { addComment, getCurrentProfile })(CommentForm);

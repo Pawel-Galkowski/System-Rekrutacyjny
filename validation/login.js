@@ -2,27 +2,26 @@
 const isEmpty = require('./is-empty');
 
 module.exports = function validateLoginImput(data) {
-    let errors = {};
+  let errors = {};
 
-    data.email = !isEmpty(data.email) ? data.email : '';
-    data.password = !isEmpty(data.password) ? data.password : '';
+  data.email = !isEmpty(data.email) ? data.email : '';
+  data.password = !isEmpty(data.password) ? data.password : '';
 
+  if (!Validator.isEmpty(data.email)) {
+    errors.email = 'Email is invalid';
+  }
+  if (Validator.isEmpty(data.email)) {
+    errors.email = 'Email is required';
+  }
+  if (!Validator.isEmpty(data.password)) {
+    errors.password = 'Password is invalid';
+  }
+  if (Validator.isEmpty(data.password)) {
+    errors.password = 'Password is required ';
+  }
 
-    if (!Validator.isEmpty(data.email)) {
-        errors.email = "Email is invalid";
-    }
-    if (Validator.isEmpty(data.email)) {
-        errors.email = "Email is required";
-    }
-    if (!Validator.isEmpty(data.password)) {
-        errors.password = "Password is invalid";
-    }
-    if (Validator.isEmpty(data.password)) {
-        errors.password = "Password is required ";
-    }
-
-    return {
-        errors,
-        isValid: isEmpty(errors)
-    };
-}
+  return {
+    errors,
+    isValid: isEmpty(errors),
+  };
+};

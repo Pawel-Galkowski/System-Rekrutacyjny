@@ -1,6 +1,6 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 const ProfileItem = ({
   profile: {
@@ -9,8 +9,8 @@ const ProfileItem = ({
     company,
     location,
     skills,
-    profileImg
-  }
+    profileImg,
+  },
 }) => {
   return (
     <div className="paddingSection">
@@ -29,8 +29,7 @@ const ProfileItem = ({
         <ul>
           {skills.slice(0, 4).map((skill, index) => (
             <li key={index} className="text-primary">
-              <i className="fas fa-check"></i> {" "}
-              {skill}
+              <i className="fas fa-check"></i> {skill}
             </li>
           ))}
         </ul>
@@ -40,7 +39,7 @@ const ProfileItem = ({
 };
 
 ProfileItem.propTypes = {
-  profile: PropTypes.object.isRequired
+  profile: PropTypes.object.isRequired,
 };
 
 export default ProfileItem;

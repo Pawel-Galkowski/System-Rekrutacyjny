@@ -1,7 +1,7 @@
-var JWT = require("./JWT");
-var passport = require("./Passport");
+var JWT = require('./JWT');
+var passport = require('./Passport');
 
 module.exports = {
   JWT,
-  passport
+  passport,
 };

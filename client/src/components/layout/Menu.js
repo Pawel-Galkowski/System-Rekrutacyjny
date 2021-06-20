@@ -1,30 +1,26 @@
-import React, { Fragment, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
-import ProfileActions from "./../dashboard/DashboardActions";
-import { getCurrentProfile } from "../../actions/profile";
+import React, { Fragment, useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import ProfileActions from './../dashboard/DashboardActions';
+import { getCurrentProfile } from '../../actions/profile';
 
-const Menu = ({
-  getCurrentProfile,
-  auth: { isAuthenticated, loading, user },
-  profile: { profile },
-}) => {
+const Menu = ({ getCurrentProfile, auth: { isAuthenticated, loading, user }, profile: { profile } }) => {
   const [arrow, setArrow] = useState();
 
   useEffect(() => {
     getCurrentProfile();
-    setArrow(">");
+    setArrow('>');
   }, [getCurrentProfile]);
 
   const mobileMenu = () => {
-    if (arrow === ">") {
-      setArrow("<");
-      document.getElementById("blockID").style.display = "block";
-      document.getElementById("simpleMenuBar").style.height = "100%";
+    if (arrow === '>') {
+      setArrow('<');
+      document.getElementById('blockID').style.display = 'block';
+      document.getElementById('simpleMenuBar').style.height = '100%';
     } else {
-      setArrow(">");
-      document.getElementById("blockID").style.display = "none";
+      setArrow('>');
+      document.getElementById('blockID').style.display = 'none';
     }
   };
 
@@ -37,10 +33,7 @@ const Menu = ({
           <div className="menubar" id="simpleMenuBar">
             <div className="show" id="blockID">
               <div id="layoutSidenav_nav">
-                <nav
-                  className="sidenav accordion sidenav-dark"
-                  id="sidenavAccordion"
-                >
+                <nav className="sidenav accordion sidenav-dark" id="sidenavAccordion">
                   <div className="sidenav-menu">
                     <div className="nav">
                       <div className="sidenav-menu-heading">Profile</div>
@@ -50,24 +43,24 @@ const Menu = ({
                         <div className="nav-link-icon">
                           <i className="fas fa-columns"></i>
                         </div>
-                        Developers{" "}
+                        Developers{' '}
                       </Link>
                       <Link className="nav-link" to="/posts">
                         <div className="nav-link-icon">
                           <i className="fas fa-book-open"></i>
                         </div>
-                        Posts{" "}
+                        Posts{' '}
                       </Link>
                       <div className="sidenav-menu-heading">Recruitment</div>
                       <Link className="nav-link" to="/forms">
                         <div className="nav-link-icon">
                           <i className="fas fa-book-open"></i>
                         </div>
-                        Companies{" "}
+                        Companies{' '}
                       </Link>
                     </div>
                     <div className="menu-bottom">
-                      {" "}
+                      {' '}
                       <small>
                         Logged in as: <br />
                       </small>
@@ -78,12 +71,7 @@ const Menu = ({
               </div>
             </div>
           </div>
-          <input
-            type="button"
-            id="mobile-button"
-            onClick={mobileMenu}
-            value={arrow}
-          />
+          <input type="button" id="mobile-button" onClick={mobileMenu} value={arrow} />
         </Fragment>
       ) : (
         <Fragment />

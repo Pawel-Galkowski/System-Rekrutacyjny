@@ -1,22 +1,22 @@
-import React, { useState, Fragment } from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { Link } from "react-router-dom";
-import { withRouter } from "react-router-dom";
-import { addCompanyForm } from "../../actions/form";
+import React, { useState, Fragment } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
+import { addCompanyForm } from '../../actions/form';
 
 const CreateForm = ({ addCompanyForm, match }) => {
   var [formData, setFormData] = useState([]);
   var [newData, setData] = useState({
-    title: "",
-    skills: "",
-    body: "",
-    question: "",
+    title: '',
+    skills: '',
+    body: '',
+    question: '',
   });
 
   const onSubmit = () => {
     if (formData < 1) {
-      alert("You need to add at least one question");
+      alert('You need to add at least one question');
     } else {
       let fullObject = {
         questions: formData,
@@ -45,13 +45,13 @@ const CreateForm = ({ addCompanyForm, match }) => {
   //sprawdz czy mozna wyslac do bazy
 
   const generateFormObject = () => {
-    if (newData !== "") {
+    if (newData !== '') {
       setFormData([newData.question, ...formData]);
       setData({
         title: newData.title,
         skills: newData.skills,
         body: newData.body,
-        question: "",
+        question: '',
       });
     }
   };
@@ -109,11 +109,7 @@ const CreateForm = ({ addCompanyForm, match }) => {
                 placeholder="Write new question"
                 onChange={(e) => onChange(e)}
               />
-              <button
-                type="button"
-                className="btn btn-success"
-                onClick={(e) => generateFormObject()}
-              >
+              <button type="button" className="btn btn-success" onClick={(e) => generateFormObject()}>
                 Add question
               </button>
             </div>
@@ -130,11 +126,7 @@ const CreateForm = ({ addCompanyForm, match }) => {
                         name={index}
                         readOnly
                       />
-                      <button
-                        type="button"
-                        className="trashBase"
-                        onClick={(e) => removeInput(index)}
-                      >
+                      <button type="button" className="trashBase" onClick={(e) => removeInput(index)}>
                         <i className="fas fa-trash"></i>
                       </button>
                     </div>
@@ -142,12 +134,7 @@ const CreateForm = ({ addCompanyForm, match }) => {
                 ))}
             </div>
             <div className="paddingSection">
-              <input
-                type="submit"
-                className="btn btn-dark margin-button"
-                value="Submit"
-                onClick={(e) => onSubmit()}
-              />
+              <input type="submit" className="btn btn-dark margin-button" value="Submit" onClick={(e) => onSubmit()} />
             </div>
           </form>
         </div>
