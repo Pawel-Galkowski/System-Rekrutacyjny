@@ -1,13 +1,10 @@
-import React, { Fragment } from "react";
-import PropTypes from "prop-types";
-import { deleteUserAccount } from "../../actions/profile";
-import { connect } from "react-redux";
-import Spinner from "../layout/Spinner";
+import React, { Fragment } from 'react';
+import PropTypes from 'prop-types';
+import { deleteUserAccount } from '../../actions/profile';
+import { connect } from 'react-redux';
+import Spinner from '../layout/Spinner';
 
-const AdminUsers = ({
-  usrs: { confirmed, _id, name, email, date, role, loading },
-  deleteUserAccount
-}) => {
+const AdminUsers = ({ usrs: { confirmed, _id, name, email, date, role, loading }, deleteUserAccount }) => {
   if (confirmed === true) {
     let adminDanger = false;
     const normalDate = date.substring(0, 10);
@@ -21,9 +18,7 @@ const AdminUsers = ({
             <div className="bg-white padding2 margin-2ud">
               <h3>
                 <strong>{name} -</strong>
-                {role === "admin"
-                  ? (adminDanger = true)
-                  : (adminDanger = false)}
+                {role === 'admin' ? (adminDanger = true) : (adminDanger = false)}
                 {adminDanger ? (
                   <Fragment>
                     <span className="dangerRole"> {role}</span>
@@ -45,11 +40,7 @@ const AdminUsers = ({
                   Creation time: <b>{timeDate}</b>
                 </p>
               </div>
-              <button
-                className="btn btn-danger"
-                onClick={e => deleteUserAccount(_id)}
-                type="button"
-              >
+              <button className="btn btn-danger" onClick={(e) => deleteUserAccount(_id)} type="button">
                 Delete Account
               </button>
             </div>
@@ -63,7 +54,7 @@ const AdminUsers = ({
 };
 
 AdminUsers.propTypes = {
-  deleteUserAccount: PropTypes.func.isRequired
+  deleteUserAccount: PropTypes.func.isRequired,
 };
 
 export default connect(null, { deleteUserAccount })(AdminUsers);

@@ -1,17 +1,17 @@
-import React, { Fragment } from "react";
-import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
-import Spinner from "../layout/Spinner";
-import { deleteUserAccount } from "../../actions/profile";
-import {connect} from 'react-redux';
+import React, { Fragment } from 'react';
+import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+import Spinner from '../layout/Spinner';
+import { deleteUserAccount } from '../../actions/profile';
+import { connect } from 'react-redux';
 
 const AdminProfiles = ({
   deleteUserAccount,
   profile: {
     user: { _id, name, avatar, loading },
     status,
-    company
-  }
+    company,
+  },
 }) => {
   return (
     <Fragment>
@@ -29,11 +29,7 @@ const AdminProfiles = ({
               <Link to={`/profile/${_id}`} className="btn btn-primary" target="_blank">
                 View Profile
               </Link>
-              <button
-                className="btn btn-danger"
-                onClick={e => deleteUserAccount(_id)}
-                type="button"
-              >
+              <button className="btn btn-danger" onClick={(e) => deleteUserAccount(_id)} type="button">
                 Delete User
               </button>
             </div>
@@ -46,7 +42,7 @@ const AdminProfiles = ({
 
 AdminProfiles.propTypes = {
   profile: PropTypes.object.isRequired,
-  deleteUserAccount: PropTypes.func.isRequired
+  deleteUserAccount: PropTypes.func.isRequired,
 };
 
-export default connect(null, {deleteUserAccount })(AdminProfiles);
+export default connect(null, { deleteUserAccount })(AdminProfiles);
