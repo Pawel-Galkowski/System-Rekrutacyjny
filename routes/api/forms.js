@@ -415,7 +415,7 @@ router.post(
         user: user._id,
         title: req.body.title,
         skills: req.body.skills,
-        body: req.body.body,
+        body: req.body.body
       };
 
       form.body = newCompanyPost;

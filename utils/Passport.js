@@ -6,16 +6,16 @@ var opts = {};
 opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
 opts.secretOrKey = process.env.TOKEN_SECRET;
 
-module.exports = passport => {
+module.exports = (passport) => {
   passport.use(
     new JwtStrategy(opts, (jwt_payload, done) => {
       controllers.user
         .getById(jwt_payload.id, false)
-        .then(user => {
+        .then((user) => {
           if (!user) return done(null, false);
           return done(null, user);
         })
-        .catch(err => {
+        .catch((err) => {
           console.log("passport authentication Error: " + err);
           return;
         });

@@ -197,15 +197,8 @@ router.put(
       return res.status(400).json({ errors: errors.array() });
     }
 
-    const {
-      title,
-      company,
-      location,
-      from,
-      to,
-      current,
-      description,
-    } = req.body;
+    const { title, company, location, from, to, current, description } =
+      req.body;
 
     const newExp = {
       title,
@@ -253,15 +246,8 @@ router.put(
       return res.status(400).json({ errors: errors.array() });
     }
 
-    const {
-      school,
-      degree,
-      fieldofstudy,
-      from,
-      to,
-      current,
-      description,
-    } = req.body;
+    const { school, degree, fieldofstudy, from, to, current, description } =
+      req.body;
 
     const newEdu = {
       school,
@@ -321,15 +307,8 @@ router.post("/experience/:exp_id", auth, async (req, res) => {
 
     const index = req.params.exp_id;
 
-    const {
-      title,
-      company,
-      location,
-      from,
-      to,
-      current,
-      description,
-    } = req.body;
+    const { title, company, location, from, to, current, description } =
+      req.body;
 
     const newExp = {
       title,
@@ -408,15 +387,8 @@ router.post("/education/:edu_id", auth, async (req, res) => {
 
     const index = req.params.edu_id;
 
-    const {
-      school,
-      degree,
-      fieldofstudy,
-      from,
-      to,
-      current,
-      description,
-    } = req.body;
+    const { school, degree, fieldofstudy, from, to, current, description } =
+      req.body;
 
     const newEdu = {
       school,
